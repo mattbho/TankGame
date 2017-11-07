@@ -9,8 +9,6 @@ package TankGame.Collision;
  *
  * @author jack
  */
-public abstract class Collison {
-    public abstract boolean collision(int left, int right, int top, int bottom);
-    public abstract void music();    
+public class Wall {
     
 }

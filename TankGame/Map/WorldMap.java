@@ -5,10 +5,15 @@
  */
 package TankGame.Map;
 
+import java.awt.Graphics2D;
+import java.awt.image.ImageObserver;
+
+
 /**
  *
  * @author jack
  */
-public class WorldMap {
+public abstract class WorldMap{
+    public abstract void draw(Graphics2D graph, ImageObserver obs);
     
 }
