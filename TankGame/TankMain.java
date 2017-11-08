@@ -10,5 +10,8 @@ package TankGame;
  * @author jack
  */
 public class TankMain {
-    
+    public static void main(String arg[]){
+        GameFrame frame = new GameFrame();
+        frame.Frame();
+    }
 }
