@@ -5,6 +5,7 @@
  */
 package TankGame;
 
+import TankGame.Collision.Tanks;
 import javax.swing.JFrame;
 
 /**
@@ -16,7 +17,9 @@ public class GameFrame {
     static final int length = 500;
     JFrame TankFrame = new JFrame("TankGame");
     public void Frame(){
-        TankFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Tanks t = new Tanks();
+        TankFrame.add(t);
+        TankFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
         TankFrame.setSize(width, length);
         TankFrame.setVisible(true);
         
