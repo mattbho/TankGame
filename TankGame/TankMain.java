@@ -20,12 +20,14 @@ public class TankMain {
         frame.init();
 
         JFrame f = new JFrame("TankGame");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.addWindowListener(new WindowAdapter() {});
         f.getContentPane().add("Center", frame);
         f.pack();
         f.setSize(new Dimension(640, 480));
         f.setVisible(true);
         f.setResizable(false);
+        
         frame.start();
     }
 }
