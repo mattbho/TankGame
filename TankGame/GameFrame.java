@@ -5,8 +5,7 @@
  */
 package TankGame;
 
-import TankGame.Collision.GameEvents;
-import TankGame.Collision.Tanks;
+import TankGame.Objects.Tanks;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 
 /**
@@ -28,8 +26,8 @@ import javax.swing.JPanel;
  * @author jack
  */
 public class GameFrame extends JApplet implements Runnable{
-    private static final int width = 640;
-    private static final int length = 480;
+    private static final int width = 960;
+    private static final int length = 840;
     private Tanks P1, P2;
     Image tank1, tank2, wall, weapon, rocket, floor;
     Graphics2D g2;
@@ -47,32 +45,24 @@ public class GameFrame extends JApplet implements Runnable{
         try{
             floor = ImageIO.read(new File("TankGame/Resource/Background.bmp"));
             tank1 = ImageIO.read(new File("TankGame/Resource/Tank1.gif"));
-            tank2 = ImageIO.read(new File("TankGame/Resource/Tank2.gif"));
+            tank2 = ImageIO.read(new File( "TankGame/Resource/Tank2.gif"));
             wall = ImageIO.read(new File("TankGame/Resource/Wall1.gif"));
             weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
             rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
             
-            P1 = new Tanks(tank1, 300, 360, 5);
-            
+            P1 = new Tanks(tank1, 0, 0, 5, 100, 3, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
+            P2 = new Tanks(tank2, 500, 300, 5, 100, 3, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
+
             gameEvents = new GameEvents();
             gameEvents.addObserver(P1);
             //gameEvents.addObserver(P2);
-            KeyControl key = new KeyControl();
+            Controls key = new Controls();
             addKeyListener(key);
             
         }catch(IOException e){}
     }
    
-    public class KeyControl extends KeyAdapter {
 
-        public void keyPressed(KeyEvent e) {
-            gameEvents.setValue(e);
-        }
-        
-        public void keyReleased(KeyEvent e){
-            gameEvents.setValue(e);
-        }
-    }
     
     public void drawBackGroundWithTileImage() {
         int TileWidth = floor.getWidth(this);
@@ -92,6 +82,7 @@ public class GameFrame extends JApplet implements Runnable{
         drawBackGroundWithTileImage();
         
         P1.draw(this, g2);
+        P2.draw(this, g2);
     }
     
     public void paint(Graphics g) {
