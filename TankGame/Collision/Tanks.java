@@ -9,8 +9,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.net.URL;
 import java.util.Observable;
+import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -20,25 +22,26 @@ import javax.swing.JLabel;
  *
  * @author jack
  */
-public class Tanks extends Collision{
+public class Tanks extends Collision implements Observer{
     int left, right, up, down, shoot, spawnX , spawnY, width, height;
+    Image tank;
     
     Rectangle box;
-    public Tanks(Image tankImg, int x,int y, int l, int r, int u, int d, int s) {
-        this.left = l;
-        this.right = r;
-        this.up = u;
-        this.down = d;
+    
+    public Tanks(Image tank, int x,int y, int s) {
+        this.tank = tank;
         this.spawnX = x;
         this.spawnY = y;
         this.shoot = s;
-        this.width = tankImg.getWidth(null);
-        this.height = tankImg.getHeight(null);
+        this.width = tank.getWidth(null);
+        this.height = tank.getHeight(null);
         
         
     }
     
-    
+    public void draw(ImageObserver obs, Graphics2D g2){
+        g2.drawImage(tank, spawnX, spawnY, obs);
+    }
 
 
     @Override
@@ -54,7 +57,8 @@ public class Tanks extends Collision{
 
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Controls con = new Controls();
+        con.update(o, arg);
     }
     
 }

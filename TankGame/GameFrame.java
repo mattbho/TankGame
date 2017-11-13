@@ -5,12 +5,15 @@
  */
 package TankGame;
 
+import TankGame.Collision.GameEvents;
 import TankGame.Collision.Tanks;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,14 +46,15 @@ public class GameFrame extends JApplet implements Runnable{
         
         try{
             floor = ImageIO.read(new File("TankGame/Resource/Background.bmp"));
-            //tank1 = ImageIO.read(new File("Resource/Tank1.gif"));
-            //tank2 = ImageIO.read(new File("Resource/Tank2.gif"));
-            //wall = ImageIO.read(new File("Resource/Wall1.gif"));
-            //weapon = ImageIO.read(new File("Resource/Weapon.gif"));
-            //rocket = ImageIO.read(new File("Resource/Rocket.gif"));
+            tank1 = ImageIO.read(new File("TankGame/Resource/Tank1.gif"));
+            tank2 = ImageIO.read(new File("TankGame/Resource/Tank2.gif"));
+            wall = ImageIO.read(new File("TankGame/Resource/Wall1.gif"));
+            weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
+            rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
             
+            P1 = new Tanks(tank1, 300, 360, 5);
             
-           /** gameEvents = new GameEvents();
+            /*gameEvents = new GameEvents();
             gameEvents.addObserver(P1);
             gameEvents.addObserver(P2);
             KeyControl key = new KeyControl();
@@ -58,14 +62,14 @@ public class GameFrame extends JApplet implements Runnable{
             
         }catch(IOException e){}
     }
-   /* 
+   /**
     public class KeyControl extends KeyAdapter {
 
         public void keyPressed(KeyEvent e) {
             gameEvents.setValue(e);
         }
-    }
-    */
+    }*/
+    
     public void drawBackGroundWithTileImage() {
         int TileWidth = floor.getWidth(this);
         int TileHeight = floor.getHeight(this);
@@ -82,6 +86,8 @@ public class GameFrame extends JApplet implements Runnable{
     
     public void drawDemo(){
         drawBackGroundWithTileImage();
+        
+        P1.draw(this, g2);
     }
     
     public void paint(Graphics g) {
@@ -113,6 +119,13 @@ public class GameFrame extends JApplet implements Runnable{
             }
             
         }
+    }
+    
+    public int getWidth(){
+        return width;
+    }
+    public int getLength(){
+        return length;
     }
     
 }

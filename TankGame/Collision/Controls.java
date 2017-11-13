@@ -1,4 +1,6 @@
-package TankGame;
+package TankGame.Collision;
+
+
 
 import java.awt.event.KeyEvent;
 import java.util.Observable;

@@ -24,7 +24,7 @@ public class TankMain {
         f.addWindowListener(new WindowAdapter() {});
         f.getContentPane().add("Center", frame);
         f.pack();
-        f.setSize(new Dimension(640, 480));
+        f.setSize(new Dimension(frame.getWidth(), frame.getLength()));
         f.setVisible(true);
         f.setResizable(false);
         
