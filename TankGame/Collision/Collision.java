@@ -14,7 +14,6 @@ import java.util.Observer;
  */
 public abstract class Collision implements Observer {
     public abstract boolean collision(int left, int right, int top, int bottom);
-    public abstract void update(Observable o, Object arg);
-    public abstract void music();    
+    public abstract void update(Observable o, Object arg);  
     
 }

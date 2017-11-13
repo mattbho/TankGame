@@ -54,21 +54,25 @@ public class GameFrame extends JApplet implements Runnable{
             
             P1 = new Tanks(tank1, 300, 360, 5);
             
-            /*gameEvents = new GameEvents();
+            gameEvents = new GameEvents();
             gameEvents.addObserver(P1);
-            gameEvents.addObserver(P2);
+            //gameEvents.addObserver(P2);
             KeyControl key = new KeyControl();
-            addKeyListener(key);*/
+            addKeyListener(key);
             
         }catch(IOException e){}
     }
-   /**
+   
     public class KeyControl extends KeyAdapter {
 
         public void keyPressed(KeyEvent e) {
             gameEvents.setValue(e);
         }
-    }*/
+        
+        public void keyReleased(KeyEvent e){
+            gameEvents.setValue(e);
+        }
+    }
     
     public void drawBackGroundWithTileImage() {
         int TileWidth = floor.getWidth(this);

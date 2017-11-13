@@ -24,34 +24,32 @@ public class Controls extends Observable{
     
     public void update(Observable obj, Object arg){
         GameEvents ge = (GameEvents) arg;
-            if(ge.type == 1) {
-                KeyEvent e = (KeyEvent) ge.event;
-                switch (e.getKeyCode()) {    
-                    case KeyEvent.VK_LEFT:
-                        x -= speed;
-	        	break; 
-                    case KeyEvent.VK_RIGHT:
-                        x += speed;
-	        	break;
-                    case KeyEvent.VK_UP:
-                        y -= speed;
-	        	break; 
-                    case KeyEvent.VK_DOWN:
-                        y += speed;
-	        	break;
-                    default:
-                  if(e.getKeyChar() == ' ') {
+        if(ge.type == 1) {
+            KeyEvent e = (KeyEvent) ge.event;
+            switch (e.getKeyCode()) {    
+                case KeyEvent.VK_LEFT:
+                    x -= speed;
+                    break; 
+                case KeyEvent.VK_RIGHT:
+                    x += speed;
+                    break;
+                case KeyEvent.VK_UP:
+                    y -= speed;	        
+                    break; 
+                case KeyEvent.VK_DOWN:
+                    y += speed;
+                    break;
+                default:
+                    if(e.getKeyChar() == ' ') {
                         System.out.println("Fire");  
-                  }
-                }
+                    }
             }
-            else if(ge.type == 2) {
-                String msg = (String)ge.event;
-                if(msg.equals("Explosion")) {
-                    System.out.println("Explosion! Reduce Health");
-        
-                }
+        }else if(ge.type == 2) {
+            String msg = (String)ge.event;
+            if(msg.equals("Explosion")) {
+                System.out.println("Explosion! Reduce Health");        
             }
+        }
     }
     
     public int getX(){
