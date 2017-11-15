@@ -19,8 +19,8 @@ import java.util.Observer;
  * @author jack
  */
 public class Tanks extends GameObject implements Observer{
-    private int  health, lives, up, down, left, right;
-
+    private int  health, lives, up, down, left, right, cooldown, angle, shotCoolDown, shotRate, shotButton;
+    private boolean moveUp,moveDown,moveLeft,moveRight;
 
     public Tanks(Image tank, int x,int y, int speed, int health, int lives, int up, int down, int left, int right) {
         super(tank,x,y,speed);
@@ -45,71 +45,75 @@ public class Tanks extends GameObject implements Observer{
        // box = new Rectangle(this.x, this.y, this.width, this.height);
         return false;
     }
-
+    public void updateMove() {
+        if (moveUp == true) {
+            x += speed * Math.cos(Math.toRadians(6 * angle));
+            y -= speed * Math.sin(Math.toRadians(6 * angle));
+        }
+        if (moveDown == true) {
+            x -= speed * Math.cos(Math.toRadians(6 * angle));
+            y += speed * Math.sin(Math.toRadians(6 * angle));
+        }
+        if (moveRight == true)
+            angle -= 1;
+        if (moveLeft == true)
+            angle += 1;
+        if (angle == -1)
+            angle = 59;
+        else if (angle == 60)
+            angle = 0;
+        if (cooldown > 0) {
+            moveLeft = false;
+            moveRight = false;
+            moveUp = false;
+            moveDown = false;
+        }
+    }
     @Override
     public void update(Observable o, Object arg) {
         GameEvents ge = (GameEvents) arg;
-        if(ge.getType() == 1) {
+        if (ge.getType() == 1) {
             KeyEvent e = (KeyEvent) ge.getEvent();
-            int keyCode = e.getKeyCode();
-            //System.out.println(keyCode);
-            //System.out.println(left + " " + right + " "+ up + " "+ down+ " "+fire);
-            if( keyCode == left) {
-                if(x > 0)
-                    x -= speed;
+            if (e.getKeyCode() == left) {
+                if (e.getID() == KeyEvent.KEY_RELEASED)
+                    moveLeft = false;
+                else if (e.getID() == KeyEvent.KEY_PRESSED)
+                    moveLeft = true;
             }
-            else if(keyCode == right){
-                if(x < 570)
-                    x += speed;
+            if (e.getKeyCode() == right) {
+                if (e.getID() == KeyEvent.KEY_RELEASED)
+                    moveRight = false;
+                else if (e.getID() == KeyEvent.KEY_PRESSED)
+                    moveRight = true;
             }
-            else if(keyCode == up){
-                if(y > 0)
-                    y -= speed;
+            if (e.getKeyCode() == up) {
+                if (e.getID() == KeyEvent.KEY_RELEASED)
+                    moveUp = false;
+                else if (e.getID() == KeyEvent.KEY_PRESSED)
+                    moveUp = true;
             }
-            else if(keyCode == down){
-                if(y < 400)
-                    y += speed;
+            if (e.getKeyCode() == down) {
+                if (e.getID() == KeyEvent.KEY_RELEASED)
+                    moveDown = false;
+                else if (e.getID() == KeyEvent.KEY_PRESSED)
+                    moveDown = true;
             }
-            //else if(keyCode == fire) {
-             //   fire();
-            //}
+            if (e.getKeyCode() == shotButton && shotCoolDown <= 0) {
+                if (e.getID() == KeyEvent.KEY_PRESSED) {
+                    shotCoolDown = shotRate;
+                    //shoot(this);
+                }
+
+            }
+        } else if (ge.getType() == 2) {
+                String msg = (String) ge.getEvent();
+                if (msg.equals("Explosion")) {
+                    System.out.println("Explosion! Reduce Health");
+                }
+            }
 
         }
-                /**case KeyEvent.VK_LEFT:
-                    if(e.getID() == KeyEvent.KEY_PRESSED)
-                        left = true;
-                    else if(e.getID() == KeyEvent.KEY_RELEASED)
-                        left = false;
-                    break; 
-                case KeyEvent.VK_RIGHT:
-                    if(e.getID() == KeyEvent.KEY_PRESSED)
-                        right = true;
-                    else if(e.getID() == KeyEvent.KEY_RELEASED)
-                        right = false;
-                    break;
-                case KeyEvent.VK_UP:
-                    if(e.getID() == KeyEvent.KEY_PRESSED)
-                        up = true;
-                    else if(e.getID() == KeyEvent.KEY_RELEASED)
-                        up = false;	        
-                    break; 
-                case KeyEvent.VK_DOWN:
-                    if(e.getID() == KeyEvent.KEY_PRESSED)
-                        down = true;
-                    else if(e.getID() == KeyEvent.KEY_RELEASED)
-                        down = false;
-                    break;*/
 
 
-        else if(ge.getType() == 2) {
-            String msg = (String)ge.getEvent();
-            if(msg.equals("Explosion")) {
-                System.out.println("Explosion! Reduce Health");        
-            }
-        }
-        
     }
-    
-    
-    
-}
+

@@ -18,7 +18,7 @@ public abstract class GameObject implements Observer {
     private Image img;
     Rectangle box;
     protected int x, y, width, height, speed;
-    private boolean collide;
+    private boolean collide = false;
 
     public GameObject(Image img, int x, int y, int speed){
         this.img = img;
@@ -30,7 +30,11 @@ public abstract class GameObject implements Observer {
 
     }
     public boolean collision(int x, int y, int width, int height){
-        //Finish later
+        box = new Rectangle(this.x,this.y,this.width,this.height);
+        Rectangle box2 = new Rectangle(x,y,width,height);
+        if(this.box.intersects(box2)){
+            collide = true;
+        }
         return collide;
     }
 

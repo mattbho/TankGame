@@ -55,7 +55,7 @@ public class GameFrame extends JApplet implements Runnable{
 
             gameEvents = new GameEvents();
             gameEvents.addObserver(P1);
-            //gameEvents.addObserver(P2);
+            gameEvents.addObserver(P2);
             Controls key = new Controls();
             addKeyListener(key);
             
@@ -82,7 +82,9 @@ public class GameFrame extends JApplet implements Runnable{
         drawBackGroundWithTileImage();
         
         P1.draw(this, g2);
+        P1.updateMove();
         P2.draw(this, g2);
+        P2.updateMove();
     }
     
     public void paint(Graphics g) {
