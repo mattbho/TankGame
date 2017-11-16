@@ -6,7 +6,6 @@
 package TankGame.Objects;
 
 import TankGame.GameEvents;
-
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -18,11 +17,11 @@ import java.util.Observer;
  *
  * @author jack
  */
-public class Tanks extends GameObject implements Observer{
-    private int  health, lives, up, down, left, right, cooldown, angle, shotCoolDown, shotRate, shotButton;
+public class Tanks extends GameObject{
+    private int  health, lives, up, down, left, right, angle = 0, shotCoolDown = 0, shotRate, shotButton, cooldown = 0;
     private boolean moveUp,moveDown,moveLeft,moveRight;
 
-    public Tanks(Image tank, int x,int y, int speed, int health, int lives, int up, int down, int left, int right) {
+    public Tanks(Image tank, int x,int y, int speed, int health, int lives, int up, int down, int left, int right, int shotButton) {
         super(tank,x,y,speed);
         this.up = up;
         this.down = down;
@@ -30,13 +29,17 @@ public class Tanks extends GameObject implements Observer{
         this.left = left;
         this.health = health;
         this.lives = lives;
+        shotRate = 15;
+        this.shotButton = shotButton;
 
         
         
     }
     @Override
     public void draw(ImageObserver obs, Graphics2D g2){
-        g2.drawImage(getImg(), getX(), getY(), obs);
+        g2.drawImage(img,x,y,x + (img.getWidth(null)/60),
+                y+img.getHeight(null),angle*64,0,
+                angle*64+64, img.getHeight(null),obs);
     }
 
 

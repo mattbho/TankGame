@@ -41,22 +41,21 @@ public class GameFrame extends JApplet implements Runnable{
     
     public void init(){
         setBackground(Color.BLACK);
-        
+        this.setFocusable(true);
         try{
             floor = ImageIO.read(new File("TankGame/Resource/Background.bmp"));
-            tank1 = ImageIO.read(new File("TankGame/Resource/Tank1.gif"));
-            tank2 = ImageIO.read(new File( "TankGame/Resource/Tank2.gif"));
+            tank1 = ImageIO.read(GameFrame.class.getResource("Resource/Tank_blue.png"));
+            tank2 = ImageIO.read(GameFrame.class.getResource("Resource/Tank_red.png"));
             wall = ImageIO.read(new File("TankGame/Resource/Wall1.gif"));
             weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
             rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
             
-            P1 = new Tanks(tank1, 0, 0, 5, 100, 3, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D);
-            P2 = new Tanks(tank2, 500, 300, 5, 100, 3, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
-
+            P1 = new Tanks(tank1, 0, 0, 5, 100, 3, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C);
+            P2 = new Tanks(tank2, 700, 500, 5, 100, 3, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN);
             gameEvents = new GameEvents();
             gameEvents.addObserver(P1);
             gameEvents.addObserver(P2);
-            Controls key = new Controls();
+            Controls key = new Controls(this.gameEvents);
             addKeyListener(key);
             
         }catch(IOException e){}
@@ -110,7 +109,7 @@ public class GameFrame extends JApplet implements Runnable{
         while (thread == me) {
             repaint();  
           try {
-                thread.sleep(25);
+                thread.sleep(35);
             } catch (InterruptedException e) {
                 break;
             }

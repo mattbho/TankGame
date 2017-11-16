@@ -19,9 +19,10 @@ import java.awt.event.KeyEvent;
  * @author jack
  */
 public class Controls extends KeyAdapter{
-    GameEvents gameEvents = new GameEvents();
+    GameEvents gameEvents;
 
-    public Controls(){
+    public Controls(GameEvents ge){
+        this.gameEvents = ge;
 
     }
 

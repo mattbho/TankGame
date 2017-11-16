@@ -15,7 +15,7 @@ import java.util.Observer;
  * @author Matt
  */
 public abstract class GameObject implements Observer {
-    private Image img;
+    protected Image img;
     Rectangle box;
     protected int x, y, width, height, speed;
     private boolean collide = false;
