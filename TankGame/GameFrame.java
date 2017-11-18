@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -43,7 +44,7 @@ public class GameFrame extends JApplet implements Runnable{
     GameEvents gameEvents;
     int w=100,h=0;
     private InputStream map;
-    private ArrayList<Wall> soildwall= new ArrayList<>();
+    private ArrayList<Wall> soildwall= new ArrayList<Wall>();
     private ArrayList<Wall> breakwall= new ArrayList<>();
     
     public void init(){
@@ -74,12 +75,13 @@ public class GameFrame extends JApplet implements Runnable{
     public void Mapdesign(){
         BufferedReader line = new BufferedReader(new InputStreamReader(map));
         String number;
+        
         int position=0;
         try{
             while((number = line.readLine()) != null){
                 for(int i= 0; i<number.length(); i++){
-                    if(number.charAt(i)==1)
-                        soildwall.add(new Wall(wall, (position % 48) * 32, (position/ 48) * 32, false));
+                    if(number.charAt(i)=='1')
+                        this.soildwall.add(new Wall(wall, (position % 30) * 32, (position/ 30) * 32, false));
                     position++;
                 }
             }
@@ -104,7 +106,7 @@ public class GameFrame extends JApplet implements Runnable{
         drawBackGroundWithTileImage();
         if (!soildwall.isEmpty()) {
             for (int i = 0; i <= soildwall.size() - 1; i++) 
-		soildwall.get(i).draw(this, g2);
+		(soildwall.get(i)).draw(this, g2);
         }
         P1.draw(this, g2);
         P1.updateMove();

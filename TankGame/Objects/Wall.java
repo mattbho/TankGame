@@ -34,7 +34,7 @@ public class Wall extends GameObject{
     
     @Override
     public void draw(ImageObserver obs, Graphics2D g){
-        g.drawImage(getImg(), x, y , obs);
+        g.drawImage(img, x, y , obs);
     }
     public void update(){
 
