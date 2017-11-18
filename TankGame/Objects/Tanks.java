@@ -49,17 +49,17 @@ public class Tanks extends GameObject{
         return false;
     }
     public void updateMove() {
-        if (moveUp == true) {
+        if (moveUp) {
             x += speed * Math.cos(Math.toRadians(6 * angle));
             y -= speed * Math.sin(Math.toRadians(6 * angle));
         }
-        if (moveDown == true) {
+        if (moveDown) {
             x -= speed * Math.cos(Math.toRadians(6 * angle));
             y += speed * Math.sin(Math.toRadians(6 * angle));
         }
-        if (moveRight == true)
+        if (moveRight)
             angle -= 1;
-        if (moveLeft == true)
+        if (moveLeft)
             angle += 1;
         if (angle == -1)
             angle = 59;
