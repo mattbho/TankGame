@@ -20,8 +20,9 @@ import java.util.Observer;
 public class Tanks extends GameObject{
     private int  health, lives, up, down, left, right, angle = 0, shotCoolDown = 0, shotRate, shotButton, cooldown = 0;
     private boolean moveUp,moveDown,moveLeft,moveRight;
+    private int width, height;
 
-    public Tanks(Image tank, int x,int y, int speed, int health, int lives, int up, int down, int left, int right, int shotButton) {
+    public Tanks(Image tank, int x,int y, int speed, int health, int lives, int w, int h, int up, int down, int left, int right, int shotButton) {
         super(tank,x,y,speed);
         this.up = up;
         this.down = down;
@@ -29,10 +30,10 @@ public class Tanks extends GameObject{
         this.left = left;
         this.health = health;
         this.lives = lives;
+        this.width=w-65;
+        this.height=h-90;
         shotRate = 15;
-        this.shotButton = shotButton;
-
-        
+        this.shotButton = shotButton;        
         
     }
     @Override
@@ -49,6 +50,7 @@ public class Tanks extends GameObject{
         return false;
     }
     public void updateMove() {
+        if(x>=0 && y>=0 && x<=width && y<=height){
         if (moveUp == true) {
             x += speed * Math.cos(Math.toRadians(6 * angle));
             y -= speed * Math.sin(Math.toRadians(6 * angle));
@@ -57,6 +59,15 @@ public class Tanks extends GameObject{
             x -= speed * Math.cos(Math.toRadians(6 * angle));
             y += speed * Math.sin(Math.toRadians(6 * angle));
         }
+        }else if(x<=0)
+            x=0;
+        else if(y<=0)
+            y=0;
+        else if(x>=width)
+            x=width;
+        else if(y>=height)
+            y=height;
+        
         if (moveRight == true)
             angle -= 1;
         if (moveLeft == true)

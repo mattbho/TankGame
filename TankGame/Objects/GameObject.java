@@ -29,6 +29,15 @@ public abstract class GameObject implements Observer {
         this.speed = speed;
 
     }
+    public GameObject(Image img, int x, int y){
+        this.img = img;
+        this.x = x;
+        this.y = y;
+        this.width = img.getWidth(null);
+        this.height = img.getHeight(null);
+    }
+    
+    
     public boolean collision(int x, int y, int width, int height){
         box = new Rectangle(this.x,this.y,this.width,this.height);
         Rectangle box2 = new Rectangle(x,y,width,height);

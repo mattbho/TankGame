@@ -7,6 +7,9 @@ package TankGame.Objects;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -16,8 +19,9 @@ public class Wall extends GameObject{
     Boolean breakable;
     private int width,height;
     private Rectangle wall;
-    public Wall(Image img, int x, int y, int speed, Boolean canBreak){
-        super(img,x,y,speed);
+    
+    public Wall(Image img, int x, int y, Boolean canBreak){
+        super(img,x,y);
         this.breakable = canBreak;
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
@@ -26,6 +30,8 @@ public class Wall extends GameObject{
     public boolean isBreakable(){
         return this.breakable;
     }
+    
+    
     @Override
     public void draw(ImageObserver obs, Graphics2D g){
         g.drawImage(getImg(), x, y , obs);
