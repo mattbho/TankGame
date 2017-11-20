@@ -8,8 +8,7 @@ package TankGame.Objects;
 import TankGame.GameEvents;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -62,7 +61,7 @@ public class Tanks extends GameObject {
 
     @Override
     public boolean collision(int x, int y, int width, int height) {
-        // box = new Rectangle(this.x, this.y, this.width, this.height);
+        box = new Rectangle(this.x, this.y, this.width, this.height);
         return false;
     }
 

@@ -47,7 +47,7 @@ public class GameFrame extends JApplet implements Runnable{
     private FileReader map;
     private ArrayList<Wall> solidwall= new ArrayList<Wall>();
     private ArrayList<Wall> breakwall= new ArrayList<>();
-    static ArrayList<Shell> shells = new ArrayList<>();
+
     
     public void init(){
         setBackground(Color.BLACK);
@@ -87,7 +87,7 @@ public class GameFrame extends JApplet implements Runnable{
                     if(number.charAt(i)=='1')
                         this.solidwall.add(new Wall(wall, (position % 30) * 32, (position/ 30) * 32, false));
                     if(number.charAt(i)=='2')
-                        this.breakwall.add(new Wall(bwall, (position % 30) * 32, (position/ 30) * 32, false));
+                        this.breakwall.add(new Wall(bwall, (position % 30) * 32, (position/ 30) * 32, true));
                     position++;
                 }
             }
