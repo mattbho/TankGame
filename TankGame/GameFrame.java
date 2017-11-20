@@ -44,7 +44,7 @@ public class GameFrame extends JApplet implements Runnable{
     private Thread thread;
     GameEvents gameEvents;
     int w=100,h=0;
-    private InputStream map;
+    private FileReader map;
     private ArrayList<Wall> solidwall= new ArrayList<Wall>();
     private ArrayList<Wall> breakwall= new ArrayList<>();
     static ArrayList<Shell> shells = new ArrayList<>();
@@ -54,15 +54,17 @@ public class GameFrame extends JApplet implements Runnable{
         this.setFocusable(true);
         try{
             floor = ImageIO.read(new File("TankGame/Resource/Background.bmp"));
-            tank1 = ImageIO.read(GameFrame.class.getResource("Resource/Tank_blue.png"));
-            tank2 = ImageIO.read(GameFrame.class.getResource("Resource/Tank_red.png"));
-            wall = ImageIO.read(GameFrame.class.getResource("Resource/Wall1.gif"));
+            tank1 = ImageIO.read(new File("TankGame/Resource/Tank_blue.png"));
+            tank2 = ImageIO.read(new File("TankGame/Resource/Tank_red.png"));
+            wall = ImageIO.read(new File("TankGame/Resource/Wall1.gif"));
             bwall = ImageIO.read(new File("TankGame/Resource/Wall2.gif"));
             weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
             rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
-            map= this.getClass().getClassLoader().getResourceAsStream("TankGame/Resource/mapDesign.txt");
-            P1 = new Tanks(tank1, 0, 0, 5, 100, 3,width, length, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C);
-            P2 = new Tanks(tank2, 700, 500, 5, 100, 3,width, length, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN);
+            map=new FileReader("TankGame/Resource/mapDesign.txt");
+            P1 = new Tanks(tank1, 375, 30, 5, 100, 3,width, length, KeyEvent.VK_W, 
+                    KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 30);
+            P2 = new Tanks(tank2, 495, 30, 5, 100, 3,width, length, KeyEvent.VK_UP,
+                    KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN, 0);
 
         }catch(Exception e){}    
             gameEvents = new GameEvents();
@@ -75,7 +77,7 @@ public class GameFrame extends JApplet implements Runnable{
     }
     
     public void Mapdesign(){
-        BufferedReader line = new BufferedReader(new InputStreamReader(map));
+        BufferedReader line = new BufferedReader(map);
         String number;
         
         int position=0;
@@ -84,6 +86,8 @@ public class GameFrame extends JApplet implements Runnable{
                 for(int i= 0; i<number.length(); i++){
                     if(number.charAt(i)=='1')
                         this.solidwall.add(new Wall(wall, (position % 30) * 32, (position/ 30) * 32, false));
+                    if(number.charAt(i)=='2')
+                        this.breakwall.add(new Wall(bwall, (position % 30) * 32, (position/ 30) * 32, false));
                     position++;
                 }
             }
@@ -109,6 +113,10 @@ public class GameFrame extends JApplet implements Runnable{
         if (!solidwall.isEmpty()) {
             for (int i = 0; i <= solidwall.size() - 1; i++)
 		(solidwall.get(i)).draw(this, g2);
+        }
+        if (!breakwall.isEmpty()) {
+            for (int i = 0; i <= breakwall.size() - 1; i++)
+		(breakwall.get(i)).draw(this, g2);
         }
 
         P1.draw(this, g2);

@@ -26,11 +26,11 @@ import java.util.Observer;
 public class Tanks extends GameObject {
     private int health, lives, up, down, left, right, angle = 0, shotCoolDown = 0, shotRate, shotButton, cooldown = 0;
     private boolean moveUp, moveDown, moveLeft, moveRight;
-    private int width, height;
     private Image shellImage;
     private ArrayList<Shell> bulletList = new ArrayList<>();
 
-    public Tanks(Image tank, int x, int y, int speed, int health, int lives, int w, int h, int up, int down, int left, int right, int shotButton) {
+    public Tanks(Image tank, int x, int y, int speed, int health, int lives, int w, 
+            int h, int up, int down, int left, int right, int shotButton, int angle) {
         super(tank, x, y, speed);
         this.up = up;
         this.down = down;
@@ -40,6 +40,7 @@ public class Tanks extends GameObject {
         this.lives = lives;
         this.width = w - 65;
         this.height = h - 90;
+        this.angle = angle;
         shotRate = 15;
         this.shotButton = shotButton;
         try {
@@ -139,7 +140,8 @@ public class Tanks extends GameObject {
 
     public void shoot() {
         Shell playerShell;
-        playerShell = new Shell(shellImage, this.x + img.getHeight(null)/120, this.y , 10, 5, this);
+        playerShell = new Shell(shellImage, this.x + (img.getWidth(null)/120)-10, 
+                this.y +img.getHeight(null)/2-20, 10, 5, this);
         bulletList.add(playerShell);
     }
 
