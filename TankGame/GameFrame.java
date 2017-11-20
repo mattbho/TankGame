@@ -5,6 +5,7 @@
  */
 package TankGame;
 
+import TankGame.Objects.Shell;
 import TankGame.Objects.Tanks;
 import TankGame.Objects.Wall;
 import java.awt.Color;
@@ -36,7 +37,7 @@ public class GameFrame extends JApplet implements Runnable{
     private final int length = 740;
     private Tanks P1, P2;
     //private mapdesign walls, breakWall;
-    Image tank1, tank2, wall, bwall, weapon, rocket, floor;
+    Image tank1, tank2, wall, bwall, weapon, rocket, floor, shell;
     Graphics2D g2;
     //int w= 500, h=500, move=0, speed=5;
     private BufferedImage bimg;
@@ -44,8 +45,9 @@ public class GameFrame extends JApplet implements Runnable{
     GameEvents gameEvents;
     int w=100,h=0;
     private InputStream map;
-    private ArrayList<Wall> soildwall= new ArrayList<Wall>();
+    private ArrayList<Wall> solidwall= new ArrayList<Wall>();
     private ArrayList<Wall> breakwall= new ArrayList<>();
+    static ArrayList<Shell> shells = new ArrayList<>();
     
     public void init(){
         setBackground(Color.BLACK);
@@ -81,7 +83,7 @@ public class GameFrame extends JApplet implements Runnable{
             while((number = line.readLine()) != null){
                 for(int i= 0; i<number.length(); i++){
                     if(number.charAt(i)=='1')
-                        this.soildwall.add(new Wall(wall, (position % 30) * 32, (position/ 30) * 32, false));
+                        this.solidwall.add(new Wall(wall, (position % 30) * 32, (position/ 30) * 32, false));
                     position++;
                 }
             }
@@ -104,14 +106,34 @@ public class GameFrame extends JApplet implements Runnable{
     
     public void drawDemo(){
         drawBackGroundWithTileImage();
-        if (!soildwall.isEmpty()) {
-            for (int i = 0; i <= soildwall.size() - 1; i++) 
-		(soildwall.get(i)).draw(this, g2);
+        if (!solidwall.isEmpty()) {
+            for (int i = 0; i <= solidwall.size() - 1; i++)
+		(solidwall.get(i)).draw(this, g2);
         }
+
         P1.draw(this, g2);
         P1.updateMove();
         P2.draw(this, g2);
         P2.updateMove();
+        for(int i = 0; i <P1.getBulletList().size(); i++){
+            if(P1.getBulletList().get(i).getShow()){
+                P1.getBulletList().get(i).draw(this,g2);
+                P1.getBulletList().get(i).update();
+            }
+            else{
+                P1.getBulletList().remove(i);
+            }
+        }
+        for(int i = 0; i <P2.getBulletList().size(); i++){
+            if(P2.getBulletList().get(i).getShow()){
+                P2.getBulletList().get(i).draw(this,g2);
+                P2.getBulletList().get(i).update();
+            }
+            else{
+                P2.getBulletList().remove(i);
+            }
+        }
+
     }
     
     public void paint(Graphics g) {
