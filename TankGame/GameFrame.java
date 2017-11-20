@@ -44,7 +44,7 @@ public class GameFrame extends JApplet implements Runnable{
     private Thread thread;
     GameEvents gameEvents;
     int w=100,h=0;
-    private InputStream map;
+    private FileReader map;
     private ArrayList<Wall> solidwall= new ArrayList<Wall>();
     private ArrayList<Wall> breakwall= new ArrayList<>();
     static ArrayList<Shell> shells = new ArrayList<>();
@@ -55,12 +55,12 @@ public class GameFrame extends JApplet implements Runnable{
         try{
             floor = ImageIO.read(new File("TankGame/Resource/Background.bmp"));
             tank1 = ImageIO.read(new File("TankGame/Resource/Tank_blue.png"));
-            tank2 = ImageIO.read(GameFrame.class.getResource("Resource/Tank_red.png"));
-            wall = ImageIO.read(GameFrame.class.getResource("Resource/Wall1.gif"));
+            tank2 = ImageIO.read(new File("TankGame/Resource/Tank_red.png"));
+            wall = ImageIO.read(new File("TankGame/Resource/Wall1.gif"));
             bwall = ImageIO.read(new File("TankGame/Resource/Wall2.gif"));
             weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
             rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
-            map=this.getClass().getClassLoader().getResourceAsStream("TankGame/Resource/mapDesign.txt");
+            map=new FileReader("TankGame/Resource/mapDesign.txt");
             P1 = new Tanks(tank1, 375, 30, 5, 100, 3,width, length, KeyEvent.VK_W, 
                     KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 30);
             P2 = new Tanks(tank2, 495, 30, 5, 100, 3,width, length, KeyEvent.VK_UP,
@@ -77,7 +77,7 @@ public class GameFrame extends JApplet implements Runnable{
     }
     
     public void Mapdesign(){
-        BufferedReader line = new BufferedReader(new InputStreamReader(map));
+        BufferedReader line = new BufferedReader(map);
         String number;
         
         int position=0;
