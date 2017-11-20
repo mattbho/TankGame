@@ -43,7 +43,8 @@ public abstract class GameObject implements Observer {
         Rectangle box2 = new Rectangle(x,y,width,height);
         if(this.box.intersects(box2)){
             collide = true;
-        }
+        }else
+            collide = false;
         return collide;
     }
 
