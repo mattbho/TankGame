@@ -5,12 +5,9 @@
  */
 package TankGame;
 
-import java.awt.Image;
-import java.awt.Rectangle;
+
 import java.awt.event.KeyEvent;
 import java.util.Observable;
-import java.util.Observer;
-
 /**
  *
  * @author jack
