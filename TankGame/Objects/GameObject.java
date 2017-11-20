@@ -20,12 +20,12 @@ public abstract class GameObject implements Observer {
     protected int x, y, width, height, speed;
     private boolean collide = false;
 
-    public GameObject(Image img, int x, int y, int speed){
+    public GameObject(Image img, int x, int y, int speed,int width, int height){
         this.img = img;
         this.x = x;
         this.y = y;
-        this.width = img.getWidth(null);
-        this.height = img.getHeight(null);
+        this.width = width;
+        this.height = height;
         this.speed = speed;
 
     }

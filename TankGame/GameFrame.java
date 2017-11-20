@@ -35,7 +35,7 @@ import javax.swing.JFrame;
 public class GameFrame extends JApplet implements Runnable{
     private final int width = 960;
     private final int length = 740;
-    private Tanks P1, P2;
+    private static Tanks P1, P2;
     //private mapdesign walls, breakWall;
     Image tank1, tank2, wall, bwall, weapon, rocket, floor, shell;
     Graphics2D g2;
@@ -61,19 +61,18 @@ public class GameFrame extends JApplet implements Runnable{
             weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
             rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
             map=new FileReader("TankGame/Resource/mapDesign.txt");
-            P1 = new Tanks(tank1, 375, 30, 5, 100, 3,width, length, KeyEvent.VK_W, 
+            P1 = new Tanks(tank1, 375, 30, 5,tank1.getWidth(null)/60, tank1.getHeight(null), KeyEvent.VK_W, 
                     KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 30);
-            P2 = new Tanks(tank2, 495, 30, 5, 100, 3,width, length, KeyEvent.VK_UP,
+            P2 = new Tanks(tank2, 495, 30, 5,tank2.getWidth(null)/60, tank2.getHeight(null), KeyEvent.VK_UP,
                     KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN, 0);
 
-        }catch(Exception e){}    
-            gameEvents = new GameEvents();
-            gameEvents.addObserver(P1);
-            gameEvents.addObserver(P2);
-            Controls key = new Controls(this.gameEvents);
-            addKeyListener(key);
-            Mapdesign();
-        
+        }catch(Exception e){} 
+        gameEvents = new GameEvents();
+        gameEvents.addObserver(P1);
+        gameEvents.addObserver(P2);
+        Controls key = new Controls(this.gameEvents);
+        addKeyListener(key);
+        Mapdesign();
     }
     
     public void Mapdesign(){
@@ -92,6 +91,12 @@ public class GameFrame extends JApplet implements Runnable{
                 }
             }
         }catch(Exception e){}
+    }
+    public static Tanks getP1(){
+        return P1;
+    }
+    public static Tanks getP2(){
+        return P2;
     }
     
     public void drawBackGroundWithTileImage() {
