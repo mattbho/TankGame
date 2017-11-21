@@ -6,9 +6,11 @@
 package TankGame.Objects;
 
 import TankGame.GameEvents;
+import TankGame.GameFrame;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -28,19 +30,19 @@ public class Tanks extends GameObject {
     private Image shellImage;
     private ArrayList<Shell> bulletList = new ArrayList<>();
 
-    public Tanks(Image tank, int x, int y, int speed, int health, int lives, int w, 
+    public Tanks(Image tank, int x, int y, int speed, int w, 
             int h, int up, int down, int left, int right, int shotButton, int angle) {
-        super(tank, x, y, speed);
+        super(tank, x, y, speed, w, h);
         this.up = up;
         this.down = down;
         this.right = right;
         this.left = left;
-        this.health = health;
-        this.lives = lives;
-        this.width = w - 65;
-        this.height = h - 90;
+        this.health =100;
+        this.lives = 3;
+        //this.width = w - 65;
+        //this.height = h - 90;
         this.angle = angle;
-        shotRate = 15;
+        shotRate = 5;
         this.shotButton = shotButton;
         try {
             shellImage = ImageIO.read(new File("TankGame/Resource/Shell_basic_strip60.png"));
@@ -56,14 +58,24 @@ public class Tanks extends GameObject {
         g2.drawImage(img, x, y, x + (img.getWidth(null) / 60),
                 y + img.getHeight(null), angle * 64, 0,
                 angle * 64 + 64, img.getHeight(null), obs);
+        if(GameFrame.getP1().collision(GameFrame.getP2().x, GameFrame.getP2().y, GameFrame.getP2().width, GameFrame.getP2().height)){
+            if(GameFrame.getP1().x>this.x){
+                GameFrame.getP1().x += speed;
+                GameFrame.getP2().x -= speed;               
+            }if(GameFrame.getP1().x<this.x){
+                GameFrame.getP1().x -= speed;
+                GameFrame.getP2().x += speed;               
+            }if(GameFrame.getP1().y>this.y){
+                GameFrame.getP1().y += speed;
+                GameFrame.getP2().y -= speed;               
+            }if(GameFrame.getP1().y<this.y){
+                GameFrame.getP1().y -= speed;
+                GameFrame.getP2().y += speed;               
+            }
+        }
+        
     }
 
-
-    @Override
-    public boolean collision(int x, int y, int width, int height) {
-        box = new Rectangle(this.x, this.y, this.width, this.height);
-        return false;
-    }
 
     public void updateMove() {
         if (moveUp == true) {
@@ -140,7 +152,7 @@ public class Tanks extends GameObject {
     public void shoot() {
         Shell playerShell;
         playerShell = new Shell(shellImage, this.x + (img.getWidth(null)/120)-10, 
-                this.y +img.getHeight(null)/2-20, 10, 5, this);
+                this.y +img.getHeight(null)/2-20, 10, 5, shellImage.getWidth(null)/60,shellImage.getHeight(null),this);
         bulletList.add(playerShell);
     }
 

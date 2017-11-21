@@ -18,8 +18,8 @@ public class Shell extends GameObject{
     private Tanks tank;
 
     boolean show;
-    public Shell(Image img, int x, int y, int speed, int damage, Tanks tank){
-        super(img, x, y, speed);
+    public Shell(Image img, int x, int y, int speed,int damage, int width, int height,Tanks tank){
+        super(img, x, y, speed,width,height );
         this.width = img.getWidth(null)/60;
         this.height = img.getHeight(null);
         this.damage = damage;

@@ -26,7 +26,7 @@ public class Wall extends GameObject{
         this.breakable = canBreak;
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
-        wall = new Rectangle(x,y,width,height);
+        System.out.println(height);
     }
     public boolean isBreakable(){
         return this.breakable;
@@ -36,11 +36,12 @@ public class Wall extends GameObject{
     @Override
     public void draw(ImageObserver obs, Graphics2D g){
         g.drawImage(img, x, y , obs);
+        update();
     }
     
     public void update(){
-       /* if ((GameFrame.getP1()).collision(this.x, this.y, width, height)){
-            if(GameFrame.getP1().x>(x)){ // wont work if i did tankgame.p1.x>(x+this.width), since it will think that my tank is < the side, and it will not bounce back.
+        if ((GameFrame.getP1()).collision(this.x, this.y, this.width, this.height)){
+            if(GameFrame.getP1().x>(this.x)){ 
 		GameFrame.getP1().x+=3;
             }else if(GameFrame.getP1().x<(this.x)){
 		GameFrame.getP1().x-=3;
@@ -52,16 +53,16 @@ public class Wall extends GameObject{
             }
 	}
 	if (GameFrame.getP2().collision(this.x, this.y, width, height)){
-            if(GameFrame.getP2().x>(x)){
+            if(GameFrame.getP2().x>this.x){
 		GameFrame.getP2().x+=3;
-            }else if(GameFrame.getP2().x<(this.x)){
+            }else if(GameFrame.getP2().x<this.x){
                 GameFrame.getP2().x-=3;
             }
-            if(GameFrame.getP2().y>(this.y)){
+            if(GameFrame.getP2().y>this.y){
 		GameFrame.getP2().y+=3;
-            }else if(GameFrame.getP2().y<this.y){
+            }else if(GameFrame.getP2().y<(this.y)){
 		GameFrame.getP2().y-=3;
             }
-        }*/
+        }
     }
 }
