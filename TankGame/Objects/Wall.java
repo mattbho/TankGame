@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
  */
 public class Wall extends GameObject{
     Boolean breakable;
-    private int width,height;
+    private int width,height,cooldown;
     private Rectangle wall;
     
     public Wall(Image img, int x, int y, Boolean canBreak){
@@ -35,10 +35,20 @@ public class Wall extends GameObject{
     
     @Override
     public void draw(ImageObserver obs, Graphics2D g){
-        g.drawImage(img, x, y , obs);
-        update();
+        if(cooldown == 0) {
+            g.drawImage(img, x, y, obs);
+            update();
+        }
+        else{
+            cooldown--;
+        }
     }
-    
+    public void breakWall(){
+        cooldown = 500;
+    }
+    public int getCooldown(){
+        return cooldown;
+    }
     public void update(){
         if ((GameFrame.getP1()).collision(this.x, this.y, this.width, this.height)){
             if(GameFrame.getP1().x>(this.x)){ 

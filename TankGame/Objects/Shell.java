@@ -8,7 +8,8 @@ package TankGame.Objects;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Observable;
-import TankGame.*;
+import TankGame.GameFrame;
+
 /**
  *
  * @author jack
@@ -32,10 +33,39 @@ public class Shell extends GameObject{
     public void stopShowing(){
         show = false;
     }
+    public boolean isShowing(){
+        return show;
+    }
 
     public void update(){
         x += speed * Math.cos( Math.toRadians( 6 * angle ) );
         y -= speed * Math.sin( Math.toRadians( 6 * angle ) );
+
+        if(GameFrame.getP1().collision(this.x,this.y,this.width,this.height) && isShowing()
+                && this.tank != GameFrame.getP1()){
+            stopShowing();
+            GameFrame.getP1().tankDamage(this.damage);
+        }else if(GameFrame.getP2().collision(this.x,this.y,this.width,this.height) && isShowing()
+                && this.tank != GameFrame.getP2()){
+            stopShowing();
+            GameFrame.getP2().tankDamage(this.damage);
+        } else{
+            for(int i = 0; i <GameFrame.getBreakwall().size() - 1; i++){
+                Wall temp = GameFrame.getBreakwall().get(i);
+                if(temp.collision(this.x,this.y,this.width,this.height)){
+                    stopShowing();
+                    temp.breakWall();
+
+                }
+            }
+            for(int i = 0; i <GameFrame.getSolidwall().size() -1; i++){
+                Wall temp = GameFrame.getSolidwall().get(i);
+                if(temp.collision(this.x,this.y,this.width,this.height)){
+                    stopShowing();
+                }
+            }
+
+        }
     }
     @Override
     public void draw (ImageObserver obs, Graphics2D g2){

@@ -45,8 +45,8 @@ public class GameFrame extends JApplet implements Runnable{
     GameEvents gameEvents;
     int w=100,h=0;
     private FileReader map;
-    private ArrayList<Wall> solidwall= new ArrayList<Wall>();
-    private ArrayList<Wall> breakwall= new ArrayList<>();
+    private static ArrayList<Wall> solidwall= new ArrayList<Wall>();
+    private static ArrayList<Wall> breakwall= new ArrayList<>();
 
     
     public void init(){
@@ -92,11 +92,18 @@ public class GameFrame extends JApplet implements Runnable{
             }
         }catch(Exception e){}
     }
+
     public static Tanks getP1(){
         return P1;
     }
     public static Tanks getP2(){
         return P2;
+    }
+    public static ArrayList<Wall> getSolidwall(){
+        return solidwall;
+    }
+    public static ArrayList<Wall> getBreakwall(){
+        return breakwall;
     }
     
     public void drawBackGroundWithTileImage() {
@@ -131,18 +138,18 @@ public class GameFrame extends JApplet implements Runnable{
         for(int i = 0; i <P1.getBulletList().size(); i++){
             if(P1.getBulletList().get(i).getShow()){
                 P1.getBulletList().get(i).draw(this,g2);
-                P1.getBulletList().get(i).update();
+
             }
-            else{
+            else if (!P1.getBulletList().get(i).isShowing()){
                 P1.getBulletList().remove(i);
             }
         }
         for(int i = 0; i <P2.getBulletList().size(); i++){
             if(P2.getBulletList().get(i).getShow()){
                 P2.getBulletList().get(i).draw(this,g2);
-                P2.getBulletList().get(i).update();
+
             }
-            else{
+            else if (!P2.getBulletList().get(i).isShowing()){
                 P2.getBulletList().remove(i);
             }
         }
@@ -164,8 +171,9 @@ public class GameFrame extends JApplet implements Runnable{
         thread = new Thread(this);
         thread.setPriority(Thread.MIN_PRIORITY);
         thread.start();
+
     }
-    
+
     @Override
     public void run() {
         Thread me = Thread.currentThread();
@@ -186,5 +194,6 @@ public class GameFrame extends JApplet implements Runnable{
     public int getLength(){
         return length;
     }
+
     
 }

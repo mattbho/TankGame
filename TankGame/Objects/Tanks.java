@@ -37,8 +37,8 @@ public class Tanks extends GameObject {
         this.down = down;
         this.right = right;
         this.left = left;
-        this.health =100;
-        this.lives = 3;
+        this.health = 4;
+        this.lives = 1;
         //this.width = w - 65;
         //this.height = h - 90;
         this.angle = angle;
@@ -162,6 +162,12 @@ public class Tanks extends GameObject {
 
     public ArrayList<Shell> getBulletList() {
         return bulletList;
+    }
+    public void tankDamage(int damage){
+        health -= damage;
+    }
+    public boolean isDead(){
+        return (lives<=0);
     }
 
 }
