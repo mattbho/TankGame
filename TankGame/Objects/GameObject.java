@@ -5,6 +5,8 @@
  */
 package TankGame.Objects;
 
+import TankGame.GameFrame;
+
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Observable;
@@ -16,25 +18,27 @@ import java.util.Observer;
  */
 public abstract class GameObject implements Observer {
     protected Image img;
+    protected Image[] imgArray;
     Rectangle box;
     protected int x, y, width, height, speed;
     private boolean collide = false;
 
-    public GameObject(Image img, int x, int y, int speed,int width, int height){
-        this.img = img;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.speed = speed;
-
-    }
-    public GameObject(Image img, int x, int y){
+    public GameObject(Image img, int x, int y, int speed){
         this.img = img;
         this.x = x;
         this.y = y;
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
+        this.speed = speed;
+
+    }
+    public GameObject(Image[] img, int x, int y, int speed){
+        this.imgArray = img;
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.width = img[0].getWidth(null);
+        this.height = img[0].getHeight(null);
     }
     
     
@@ -53,7 +57,9 @@ public abstract class GameObject implements Observer {
     }
     public void draw(ImageObserver obs, Graphics2D g2){
 
-
+    }
+    public void addExplosion(Image[] largeOrSmall, int x, int y){
+        GameFrame.getExplosion().add(new Explosion(largeOrSmall, x, y));
     }
     public int getX(){
         return x;

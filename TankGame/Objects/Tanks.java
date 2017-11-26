@@ -30,16 +30,16 @@ public class Tanks extends GameObject {
     private Image shellImage;
     private ArrayList<Shell> bulletList = new ArrayList<>();
 
-    public Tanks(Image tank, int x, int y, int speed, int w, 
-            int h, int up, int down, int left, int right, int shotButton, int angle) {
-        super(tank, x, y, speed, w, h);
+    public Tanks(Image tank, int x, int y, int speed,
+             int up, int down, int left, int right, int shotButton, int angle) {
+        super(tank, x, y, speed);
         this.up = up;
         this.down = down;
         this.right = right;
         this.left = left;
         this.health = 4;
         this.lives = 1;
-        //this.width = w - 65;
+        this.width = tank.getWidth(null)/60;
         //this.height = h - 90;
         this.angle = angle;
         shotRate = 5;
@@ -152,7 +152,7 @@ public class Tanks extends GameObject {
     public void shoot() {
         Shell playerShell;
         playerShell = new Shell(shellImage, this.x + (img.getWidth(null)/120)-10, 
-                this.y +img.getHeight(null)/2-20, 10, 5, shellImage.getWidth(null)/60,shellImage.getHeight(null),this);
+                this.y +img.getHeight(null)/2-20, 10, 5,this);
         bulletList.add(playerShell);
     }
 

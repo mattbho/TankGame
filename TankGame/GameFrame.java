@@ -5,6 +5,7 @@
  */
 package TankGame;
 
+import TankGame.Objects.Explosion;
 import TankGame.Objects.Shell;
 import TankGame.Objects.Tanks;
 import TankGame.Objects.Wall;
@@ -46,8 +47,10 @@ public class GameFrame extends JApplet implements Runnable{
     int w=100,h=0;
     private FileReader map;
     private static ArrayList<Wall> solidwall= new ArrayList<Wall>();
-    private static ArrayList<Wall> breakwall= new ArrayList<>();
-
+    private static ArrayList<Wall> breakwall= new ArrayList<Wall>();
+    private Image[] explosionLarge = new Image[7];
+    private Image[] explosionSmall = new Image[6];
+    private static ArrayList<Explosion> explosion = new ArrayList<Explosion>();
     
     public void init(){
         setBackground(Color.BLACK);
@@ -60,10 +63,23 @@ public class GameFrame extends JApplet implements Runnable{
             bwall = ImageIO.read(new File("TankGame/Resource/Wall2.gif"));
             weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
             rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
+            explosionLarge[0] = ImageIO.read(new File("TankGame/Resource/Explosion_large00.gif"));
+            explosionLarge[1] = ImageIO.read(new File("TankGame/Resource/Explosion_large01.gif"));
+            explosionLarge[2] = ImageIO.read(new File("TankGame/Resource/Explosion_large02.gif"));
+            explosionLarge[3] = ImageIO.read(new File("TankGame/Resource/Explosion_large03.gif"));
+            explosionLarge[4] = ImageIO.read(new File("TankGame/Resource/Explosion_large04.gif"));
+            explosionLarge[5] = ImageIO.read(new File("TankGame/Resource/Explosion_large05.gif"));
+            explosionLarge[6] = ImageIO.read(new File("TankGame/Resource/Explosion_large06.gif"));
+            explosionSmall[0] = ImageIO.read(new File("TankGame/Resource/Explosion_small00.png"));
+            explosionSmall[1] = ImageIO.read(new File("TankGame/Resource/Explosion_small01.png"));
+            explosionSmall[2] = ImageIO.read(new File("TankGame/Resource/Explosion_small02.png"));
+            explosionSmall[3] = ImageIO.read(new File("TankGame/Resource/Explosion_small03.png"));
+            explosionSmall[4] = ImageIO.read(new File("TankGame/Resource/Explosion_small04.png"));
+            explosionSmall[5] = ImageIO.read(new File("TankGame/Resource/Explosion_small05.png"));
             map=new FileReader("TankGame/Resource/mapDesign.txt");
-            P1 = new Tanks(tank1, 375, 30, 5,tank1.getWidth(null)/60, tank1.getHeight(null), KeyEvent.VK_W, 
+            P1 = new Tanks(tank1, 375, 30, 5 , KeyEvent.VK_W,
                     KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 30);
-            P2 = new Tanks(tank2, 495, 30, 5,tank2.getWidth(null)/60, tank2.getHeight(null), KeyEvent.VK_UP,
+            P2 = new Tanks(tank2, 495, 30, 5, KeyEvent.VK_UP,
                     KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN, 0);
 
         }catch(Exception e){} 
@@ -105,7 +121,9 @@ public class GameFrame extends JApplet implements Runnable{
     public static ArrayList<Wall> getBreakwall(){
         return breakwall;
     }
-    
+    public static ArrayList<Explosion> getExplosion(){
+        return explosion;
+    }
     public void drawBackGroundWithTileImage() {
         int TileWidth = floor.getWidth(this);
         int TileHeight = floor.getHeight(this);
@@ -187,7 +205,7 @@ public class GameFrame extends JApplet implements Runnable{
             
         }
     }
-    
+
     public int getWidth(){
         return width;
     }

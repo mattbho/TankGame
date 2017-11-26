@@ -22,7 +22,7 @@ public class Wall extends GameObject{
     private Rectangle wall;
     
     public Wall(Image img, int x, int y, Boolean canBreak){
-        super(img,x,y);
+        super(img,x,y, 0);
         this.breakable = canBreak;
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);

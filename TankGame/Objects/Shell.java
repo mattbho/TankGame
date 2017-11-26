@@ -19,8 +19,8 @@ public class Shell extends GameObject{
     private Tanks tank;
 
     boolean show;
-    public Shell(Image img, int x, int y, int speed,int damage, int width, int height,Tanks tank){
-        super(img, x, y, speed,width,height );
+    public Shell(Image img, int x, int y, int speed,int damage,Tanks tank){
+        super(img, x, y, speed);
         this.width = img.getWidth(null)/60;
         this.height = img.getHeight(null);
         this.damage = damage;
@@ -56,12 +56,14 @@ public class Shell extends GameObject{
                     stopShowing();
                     temp.breakWall();
 
+
                 }
             }
             for(int i = 0; i <GameFrame.getSolidwall().size() -1; i++){
                 Wall temp = GameFrame.getSolidwall().get(i);
                 if(temp.collision(this.x,this.y,this.width,this.height)){
                     stopShowing();
+
                 }
             }
 
