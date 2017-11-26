@@ -53,9 +53,10 @@ public class Shell extends GameObject{
             for(int i = 0; i <GameFrame.getBreakwall().size() - 1; i++){
                 Wall temp = GameFrame.getBreakwall().get(i);
                 if(temp.collision(this.x,this.y,this.width,this.height)){
-                    stopShowing();
-                    temp.breakWall();
 
+                    temp.breakWall();
+                    stopShowing();
+                    addExplosion(GameFrame.getExplosionSmall(),temp.x,temp.y);
 
                 }
             }
@@ -63,6 +64,7 @@ public class Shell extends GameObject{
                 Wall temp = GameFrame.getSolidwall().get(i);
                 if(temp.collision(this.x,this.y,this.width,this.height)){
                     stopShowing();
+                    addExplosion(GameFrame.getExplosionSmall(),temp.x,temp.y);
 
                 }
             }

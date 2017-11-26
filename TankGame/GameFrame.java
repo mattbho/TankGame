@@ -48,8 +48,8 @@ public class GameFrame extends JApplet implements Runnable{
     private FileReader map;
     private static ArrayList<Wall> solidwall= new ArrayList<Wall>();
     private static ArrayList<Wall> breakwall= new ArrayList<Wall>();
-    private Image[] explosionLarge = new Image[7];
-    private Image[] explosionSmall = new Image[6];
+    private static Image[] explosionLarge = new Image[7];
+    private static Image[] explosionSmall = new Image[6];
     private static ArrayList<Explosion> explosion = new ArrayList<Explosion>();
     
     public void init(){
@@ -121,6 +121,8 @@ public class GameFrame extends JApplet implements Runnable{
     public static ArrayList<Wall> getBreakwall(){
         return breakwall;
     }
+    public static Image[] getExplosionSmall(){return explosionSmall;}
+    public static Image[] getExplosionLarge(){return explosionLarge;}
     public static ArrayList<Explosion> getExplosion(){
         return explosion;
     }
@@ -146,13 +148,9 @@ public class GameFrame extends JApplet implements Runnable{
         }
         if (!breakwall.isEmpty()) {
             for (int i = 0; i <= breakwall.size() - 1; i++)
-		(breakwall.get(i)).draw(this, g2);
-        }
+                (breakwall.get(i)).draw(this,g2);
 
-        P1.draw(this, g2);
-        P1.updateMove();
-        P2.draw(this, g2);
-        P2.updateMove();
+        }
         for(int i = 0; i <P1.getBulletList().size(); i++){
             if(P1.getBulletList().get(i).getShow()){
                 P1.getBulletList().get(i).draw(this,g2);
@@ -169,6 +167,21 @@ public class GameFrame extends JApplet implements Runnable{
             }
             else if (!P2.getBulletList().get(i).isShowing()){
                 P2.getBulletList().remove(i);
+            }
+        }
+
+        P1.draw(this, g2);
+        P1.updateMove();
+        P2.draw(this, g2);
+        P2.updateMove();
+
+        if(!explosion.isEmpty()){
+            for(int i = 0; i <= explosion.size()-1; i++){
+                if(explosion.get(i).getFinished()){
+                    explosion.remove(i--);
+                } else {
+                    explosion.get(i).draw(this,g2);
+                }
             }
         }
 

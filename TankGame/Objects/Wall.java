@@ -44,7 +44,7 @@ public class Wall extends GameObject{
         }
     }
     public void breakWall(){
-        cooldown = 500;
+        cooldown = 800;
     }
     public int getCooldown(){
         return cooldown;

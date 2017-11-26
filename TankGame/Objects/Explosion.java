@@ -14,7 +14,7 @@ public class Explosion extends GameObject{
         super(img, x, y, 0);
         this.img = img;
         count = 0;
-        delay = 0;
+        delay = 3;
         finished = false;
     }
     public void draw(ImageObserver obs, Graphics2D g2){
