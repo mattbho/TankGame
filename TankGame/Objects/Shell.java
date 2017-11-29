@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Observable;
 import TankGame.GameFrame;
-import TankGame.SoundPlayer;
 
 /**
  *
@@ -19,7 +18,7 @@ public class Shell extends GameObject{
     private int damage, speed, angle;
     private Tanks tank;
 
-    boolean show;
+    static boolean show;
     public Shell(Image img, int x, int y, int speed,int damage,Tanks tank){
         super(img, x, y, speed);
         this.width = img.getWidth(null)/60;
@@ -34,7 +33,7 @@ public class Shell extends GameObject{
     public void stopShowing(){
         show = false;
     }
-    public boolean isShowing(){
+    public static boolean isShowing(){
         return show;
     }
 
@@ -53,21 +52,18 @@ public class Shell extends GameObject{
         } else{
             for(int i = 0; i <GameFrame.getBreakwall().size() - 1; i++){
                 Wall temp = GameFrame.getBreakwall().get(i);
-                if(temp.collision(this.x,this.y,this.width,this.height) && isShowing()){
-
+                if(temp.collision(this.x,this.y,this.width,this.height) && temp.getCool() ==0){
                     temp.breakWall();
-                    addExplosion(GameFrame.getExplosionSmall(),temp.x,temp.y);
-                    SoundPlayer.player("TankGame/Resource/Explosion_small.wav",false);
                     stopShowing();
+                    addExplosion(GameFrame.getExplosionSmall(),temp.x,temp.y);
+
                 }
-
             }
-
             for(int i = 0; i <GameFrame.getSolidwall().size() -1; i++){
                 Wall temp = GameFrame.getSolidwall().get(i);
                 if(temp.collision(this.x,this.y,this.width,this.height)){
                     stopShowing();
-                    addExplosion(GameFrame.getExplosionSmall(),temp.x,temp.y);
+                    addExplosion(GameFrame.getExplosionSmall(),x, y);
 
                 }
             }
