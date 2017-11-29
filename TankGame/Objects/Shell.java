@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Observable;
 import TankGame.GameFrame;
+import TankGame.SoundPlayer;
 
 /**
  *
@@ -52,14 +53,16 @@ public class Shell extends GameObject{
         } else{
             for(int i = 0; i <GameFrame.getBreakwall().size() - 1; i++){
                 Wall temp = GameFrame.getBreakwall().get(i);
-                if(temp.collision(this.x,this.y,this.width,this.height)){
+                if(temp.collision(this.x,this.y,this.width,this.height) && isShowing()){
 
                     temp.breakWall();
-                    stopShowing();
                     addExplosion(GameFrame.getExplosionSmall(),temp.x,temp.y);
-
+                    SoundPlayer.player("TankGame/Resource/Explosion_small.wav",false);
+                    stopShowing();
                 }
+
             }
+
             for(int i = 0; i <GameFrame.getSolidwall().size() -1; i++){
                 Wall temp = GameFrame.getSolidwall().get(i);
                 if(temp.collision(this.x,this.y,this.width,this.height)){
