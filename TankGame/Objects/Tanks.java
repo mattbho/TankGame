@@ -151,8 +151,8 @@ public class Tanks extends GameObject {
 
     public void shoot() {
         Shell playerShell;
-        playerShell = new Shell(shellImage, this.x + (img.getWidth(null)/120)-10, 
-                this.y +img.getHeight(null)/2-20, 10, 5,this);
+        playerShell = new Shell(shellImage, this.x+ (img.getWidth(null)/120)-10, 
+                this.y +5+img.getHeight(null)/2-20, 10, 5,this);
         bulletList.add(playerShell);
     }
 

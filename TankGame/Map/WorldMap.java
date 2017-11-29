@@ -5,7 +5,9 @@
  */
 package TankGame.Map;
 
+import TankGame.GameFrame;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.ImageObserver;
 
 
@@ -13,7 +15,6 @@ import java.awt.image.ImageObserver;
  *
  * @author jack
  */
-public abstract class WorldMap{
-    public abstract void draw(Graphics2D graph, ImageObserver obs);
+public class WorldMap{
     
 }

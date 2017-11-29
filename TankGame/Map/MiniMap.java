@@ -12,7 +12,7 @@ import java.awt.image.ImageObserver;
  *
  * @author jack
  */
-public class MiniMap extends WorldMap{
+public class MiniMap{
     public void draw(Graphics2D graph, ImageObserver obs) {
         
     }

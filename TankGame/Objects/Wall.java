@@ -43,35 +43,41 @@ public class Wall extends GameObject{
             cooldown--;
         }
     }
+    public int getCool(){
+        return cooldown;
+    }
     public void breakWall(){
         cooldown = 800;
     }
     public int getCooldown(){
         return cooldown;
     }
+    
     public void update(){
-        if ((GameFrame.getP1()).collision(this.x, this.y, this.width, this.height)){
-            if(GameFrame.getP1().x>(this.x)){ 
-		GameFrame.getP1().x+=3;
-            }else if(GameFrame.getP1().x<(this.x)){
-		GameFrame.getP1().x-=3;
+        if(Shell.isShowing()==false){
+            if ((GameFrame.getP1()).collision(this.x, this.y, this.width, this.height)){
+                if(GameFrame.getP1().x>(this.x)){ 
+                    GameFrame.getP1().x+=3;
+                }else if(GameFrame.getP1().x<(this.x)){
+                    GameFrame.getP1().x-=3;
+                }
+                if(GameFrame.getP1().y>(this.y)){
+                    GameFrame.getP1().y+=3;
+                }else if(GameFrame.getP1().y<this.y){
+                    GameFrame.getP1().y-=3;
+                }
             }
-            if(GameFrame.getP1().y>(this.y)){
-		GameFrame.getP1().y+=3;
-            }else if(GameFrame.getP1().y<this.y){
-		GameFrame.getP1().y-=3;
-            }
-	}
-	if (GameFrame.getP2().collision(this.x, this.y, width, height)){
-            if(GameFrame.getP2().x>this.x){
-		GameFrame.getP2().x+=3;
-            }else if(GameFrame.getP2().x<this.x){
-                GameFrame.getP2().x-=3;
-            }
-            if(GameFrame.getP2().y>this.y){
-		GameFrame.getP2().y+=3;
-            }else if(GameFrame.getP2().y<(this.y)){
-		GameFrame.getP2().y-=3;
+            if (GameFrame.getP2().collision(this.x, this.y, width, height)){
+                if(GameFrame.getP2().x>this.x){
+                    GameFrame.getP2().x+=3;
+                }else if(GameFrame.getP2().x<this.x){
+                    GameFrame.getP2().x-=3;
+                }
+                if(GameFrame.getP2().y>this.y){
+                    GameFrame.getP2().y+=3;
+                }else if(GameFrame.getP2().y<(this.y)){
+                    GameFrame.getP2().y-=3;
+                }
             }
         }
     }
