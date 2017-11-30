@@ -19,14 +19,12 @@ import java.io.InputStreamReader;
 public class Wall extends GameObject{
     Boolean breakable;
     private int width,height,cooldown;
-    private Rectangle wall;
     
     public Wall(Image img, int x, int y, Boolean canBreak){
         super(img,x,y, 0);
         this.breakable = canBreak;
         this.width = img.getWidth(null);
         this.height = img.getHeight(null);
-        System.out.println(height);
     }
     public boolean isBreakable(){
         return this.breakable;
@@ -56,12 +54,12 @@ public class Wall extends GameObject{
     public void update(){
         if(Shell.isShowing()==false){
             if ((GameFrame.getP1()).collision(this.x, this.y, this.width, this.height)){
-                if(GameFrame.getP1().x>(this.x)){ 
+                if(GameFrame.getP1().x>this.x){ 
                     GameFrame.getP1().x+=3;
-                }else if(GameFrame.getP1().x<(this.x)){
+                }else if(GameFrame.getP1().x<this.x){
                     GameFrame.getP1().x-=3;
                 }
-                if(GameFrame.getP1().y>(this.y)){
+                if(GameFrame.getP1().y>this.y){
                     GameFrame.getP1().y+=3;
                 }else if(GameFrame.getP1().y<this.y){
                     GameFrame.getP1().y-=3;
@@ -75,7 +73,7 @@ public class Wall extends GameObject{
                 }
                 if(GameFrame.getP2().y>this.y){
                     GameFrame.getP2().y+=3;
-                }else if(GameFrame.getP2().y<(this.y)){
+                }else if(GameFrame.getP2().y<this.y){
                     GameFrame.getP2().y-=3;
                 }
             }

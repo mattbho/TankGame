@@ -29,19 +29,22 @@ public class Tanks extends GameObject {
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private Image shellImage;
     private ArrayList<Shell> bulletList = new ArrayList<>();
-
+    private int ox,oy,oangle=0 ;
     public Tanks(Image tank, int x, int y, int speed,
              int up, int down, int left, int right, int shotButton, int angle) {
         super(tank, x, y, speed);
+        ox = x;
+        oy = y;
         this.up = up;
         this.down = down;
         this.right = right;
         this.left = left;
-        this.health = 4;
-        this.lives = 1;
+        this.health = 100;
+        this.lives = 3;
         this.width = tank.getWidth(null)/60;
         //this.height = h - 90;
         this.angle = angle;
+        oangle=angle;
         shotRate = 5;
         this.shotButton = shotButton;
         try {
@@ -55,9 +58,19 @@ public class Tanks extends GameObject {
     @Override
     public void draw(ImageObserver obs, Graphics2D g2) {
         shotCoolDown--;
-        g2.drawImage(img, x, y, x + (img.getWidth(null) / 60),
-                y + img.getHeight(null), angle * 64, 0,
-                angle * 64 + 64, img.getHeight(null), obs);
+        if(!isDead()){
+            if(health >= 0){
+                g2.drawImage(img, x, y, x + (img.getWidth(null) / 60),
+                        y + img.getHeight(null), angle * 64, 0,
+                        angle * 64 + 64, img.getHeight(null), obs);
+            }else{
+                angle = oangle;
+                x=ox;
+                y=oy;
+                health=100;
+                lives--;
+            }
+        }
         if(GameFrame.getP1().collision(GameFrame.getP2().x, GameFrame.getP2().y, GameFrame.getP2().width, GameFrame.getP2().height)){
             if(GameFrame.getP1().x>this.x){
                 GameFrame.getP1().x += speed;
@@ -166,6 +179,7 @@ public class Tanks extends GameObject {
     public void tankDamage(int damage){
         health -= damage;
     }
+    
     public boolean isDead(){
         return (lives<=0);
     }

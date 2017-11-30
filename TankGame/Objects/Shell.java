@@ -45,10 +45,12 @@ public class Shell extends GameObject{
                 && this.tank != GameFrame.getP1()){
             stopShowing();
             GameFrame.getP1().tankDamage(this.damage);
+            addExplosion(GameFrame.getExplosionSmall(),this.x,this.y);
         }else if(GameFrame.getP2().collision(this.x,this.y,this.width,this.height) && isShowing()
                 && this.tank != GameFrame.getP2()){
             stopShowing();
             GameFrame.getP2().tankDamage(this.damage);
+            addExplosion(GameFrame.getExplosionSmall(),this.x,this.y);
         } else{
             for(int i = 0; i <GameFrame.getBreakwall().size() - 1; i++){
                 Wall temp = GameFrame.getBreakwall().get(i);

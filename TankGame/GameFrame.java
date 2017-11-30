@@ -53,6 +53,7 @@ public class GameFrame extends JApplet implements Runnable{
     private static ArrayList<Explosion> explosion = new ArrayList<Explosion>();
     
     public void init(){
+        
         setBackground(Color.BLACK);
         this.setFocusable(true);
         try{
@@ -77,18 +78,20 @@ public class GameFrame extends JApplet implements Runnable{
             explosionSmall[4] = ImageIO.read(new File("TankGame/Resource/Explosion_small04.png"));
             explosionSmall[5] = ImageIO.read(new File("TankGame/Resource/Explosion_small05.png"));
             map=new FileReader("TankGame/Resource/mapDesign.txt");
-            P1 = new Tanks(tank1, 375, 30, 5 , KeyEvent.VK_W,
-                    KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 30);
-            P2 = new Tanks(tank2, 495, 30, 5, KeyEvent.VK_UP,
-                    KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN, 0);
-
         }catch(Exception e){} 
+        P1 = new Tanks(tank1, 375, 30, 5 , KeyEvent.VK_W,
+                KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 30);
+        P2 = new Tanks(tank2, 495, 30, 5, KeyEvent.VK_UP,
+                KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN, 0);
+
+        
         gameEvents = new GameEvents();
         gameEvents.addObserver(P1);
         gameEvents.addObserver(P2);
         Controls key = new Controls(this.gameEvents);
         addKeyListener(key);
         Mapdesign();
+        SoundPlayer.player("TankGame/Resource/Music.mid", true);
     }
     
     public void Mapdesign(){
