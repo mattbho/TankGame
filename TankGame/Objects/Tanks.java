@@ -173,10 +173,12 @@ public class Tanks extends GameObject {
 }
 
     public void shoot() {
-        Shell playerShell;
-        playerShell = new Shell(shellImage, this.x+ (img.getWidth(null)/120)-10, 
-                this.y +5+img.getHeight(null)/2-20, 10, 25,this);
-        bulletList.add(playerShell);
+        if(!isDead()) {
+            Shell playerShell;
+            playerShell = new Shell(shellImage, this.x + (img.getWidth(null) / 120) - 10,
+                    this.y + 5 + img.getHeight(null) / 2 - 20, 10, 25, this);
+            bulletList.add(playerShell);
+        }
     }
 
     public int getAngle() {
@@ -192,6 +194,9 @@ public class Tanks extends GameObject {
     
     public boolean isDead(){
         return (lives<=0);
+    }
+    public int getCooldown(){
+        return cooldown;
     }
 
 }
