@@ -15,8 +15,9 @@ import javax.swing.JFrame;
  * @author jack
  */
 public class TankMain {
+    private static final GameFrame frame = new GameFrame();
     public static void main(String arg[]){
-        GameFrame frame = new GameFrame();
+
         frame.init();
 
         JFrame f = new JFrame("TankGame");
@@ -29,5 +30,9 @@ public class TankMain {
         f.setResizable(false);
         
         frame.start();
+    }
+
+    public static GameFrame getFrame() {
+        return frame;
     }
 }
