@@ -11,16 +11,16 @@ public class Explosion extends GameObject{
     private int delay;
     private boolean finished;
     public Explosion(Image[] img, int x, int y){
-        super(img, x, y, 0);
+        super(img, x, y);
         this.img = img;
         count = 0;
-        delay = 3;
+        delay = 0;
         finished = false;
     }
     public void draw(ImageObserver obs, Graphics2D g2){
         if(delay < img.length){
             g2.drawImage(this.img[delay % this.img.length], x, y, obs);
-            if(((count++)%10) == 0){
+            if(((count++)%5) == 0){
                 delay++;
             }
         } else{

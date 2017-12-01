@@ -32,11 +32,10 @@ public abstract class GameObject implements Observer {
         this.speed = speed;
 
     }
-    public GameObject(Image[] img, int x, int y, int speed){
+    public GameObject(Image[] img, int x, int y){
         this.imgArray = img;
         this.x = x;
         this.y = y;
-        this.speed = speed;
         this.width = img[0].getWidth(null);
         this.height = img[0].getHeight(null);
     }

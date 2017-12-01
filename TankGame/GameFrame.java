@@ -14,6 +14,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -41,7 +42,7 @@ public class GameFrame extends JApplet implements Runnable{
     Image tank1, tank2, wall, bwall, weapon, rocket, floor, shell;
     Graphics2D g2;
     //int w= 500, h=500, move=0, speed=5;
-    private BufferedImage bimg;
+    private BufferedImage bimg, p1view, p2view;
     private Thread thread;
     GameEvents gameEvents;
     int w=100,h=0;
@@ -64,19 +65,19 @@ public class GameFrame extends JApplet implements Runnable{
             bwall = ImageIO.read(new File("TankGame/Resource/Wall2.gif"));
             weapon = ImageIO.read(new File("TankGame/Resource/Weapon.gif"));
             rocket = ImageIO.read(new File("TankGame/Resource/Rocket.gif"));
-            explosionLarge[0] = ImageIO.read(new File("TankGame/Resource/Explosion_large00.gif"));
-            explosionLarge[1] = ImageIO.read(new File("TankGame/Resource/Explosion_large01.gif"));
-            explosionLarge[2] = ImageIO.read(new File("TankGame/Resource/Explosion_large02.gif"));
-            explosionLarge[3] = ImageIO.read(new File("TankGame/Resource/Explosion_large03.gif"));
-            explosionLarge[4] = ImageIO.read(new File("TankGame/Resource/Explosion_large04.gif"));
-            explosionLarge[5] = ImageIO.read(new File("TankGame/Resource/Explosion_large05.gif"));
-            explosionLarge[6] = ImageIO.read(new File("TankGame/Resource/Explosion_large06.gif"));
-            explosionSmall[0] = ImageIO.read(new File("TankGame/Resource/Explosion_small00.png"));
-            explosionSmall[1] = ImageIO.read(new File("TankGame/Resource/Explosion_small01.png"));
-            explosionSmall[2] = ImageIO.read(new File("TankGame/Resource/Explosion_small02.png"));
-            explosionSmall[3] = ImageIO.read(new File("TankGame/Resource/Explosion_small03.png"));
-            explosionSmall[4] = ImageIO.read(new File("TankGame/Resource/Explosion_small04.png"));
-            explosionSmall[5] = ImageIO.read(new File("TankGame/Resource/Explosion_small05.png"));
+            explosionLarge[0] = ImageIO.read(new File("TankGame/Resource/explosion2_1.png"));
+            explosionLarge[1] = ImageIO.read(new File("TankGame/Resource/explosion2_2.png"));
+            explosionLarge[2] = ImageIO.read(new File("TankGame/Resource/explosion2_3.png"));
+            explosionLarge[3] = ImageIO.read(new File("TankGame/Resource/explosion2_4.png"));
+            explosionLarge[4] = ImageIO.read(new File("TankGame/Resource/explosion2_5.png"));
+            explosionLarge[5] = ImageIO.read(new File("TankGame/Resource/explosion2_6.png"));
+            explosionLarge[6] = ImageIO.read(new File("TankGame/Resource/explosion2_7.png"));
+            explosionSmall[0] = ImageIO.read(new File("TankGame/Resource/explosion1_1.png"));
+            explosionSmall[1] = ImageIO.read(new File("TankGame/Resource/explosion1_2.png"));
+            explosionSmall[2] = ImageIO.read(new File("TankGame/Resource/explosion1_3.png"));
+            explosionSmall[3] = ImageIO.read(new File("TankGame/Resource/explosion1_4.png"));
+            explosionSmall[4] = ImageIO.read(new File("TankGame/Resource/explosion1_5.png"));
+            explosionSmall[5] = ImageIO.read(new File("TankGame/Resource/explosion1_6.png"));
             map=new FileReader("TankGame/Resource/mapDesign.txt");
         }catch(Exception e){} 
         P1 = new Tanks(tank1, 375, 30, 5 , KeyEvent.VK_W,
@@ -190,12 +191,23 @@ public class GameFrame extends JApplet implements Runnable{
 
     }
     
-    public void paint(Graphics g) {
-        if(bimg == null) {
-            Dimension windowSize = getSize();
-            bimg = (BufferedImage) createImage(windowSize.width, windowSize.height);
-            g2 = bimg.createGraphics();
+    public Graphics2D createGraphics2D(int w, int h) {
+        Graphics2D g2 = null;
+        if (bimg == null || bimg.getWidth() != w || bimg.getHeight() != h) {
+            bimg = (BufferedImage) createImage(w, h);
         }
+        g2 = bimg.createGraphics();
+        g2.setBackground(getBackground());
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
+        g2.clearRect(0, 0, w, h);
+        return g2;
+    }
+    
+    public void paint(Graphics g) {        
+        g2 = createGraphics2D(width,length);
+        
+        
         drawDemo();
         g.drawImage(bimg, 0, 0, this);
     }

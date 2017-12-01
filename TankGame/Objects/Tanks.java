@@ -64,6 +64,7 @@ public class Tanks extends GameObject {
                         y + img.getHeight(null), angle * 64, 0,
                         angle * 64 + 64, img.getHeight(null), obs);
             }else{
+                addExplosion(GameFrame.getExplosionLarge(),this.x,this.y);
                 angle = oangle;
                 x=ox;
                 y=oy;
@@ -109,12 +110,13 @@ public class Tanks extends GameObject {
             angle = 59;
         else if (angle == 60)
             angle = 0;
+        /*
         if (cooldown > 0) {
             moveLeft = false;
             moveRight = false;
             moveUp = false;
             moveDown = false;
-        }
+        }*/
     }
 
     @Override
@@ -165,7 +167,7 @@ public class Tanks extends GameObject {
     public void shoot() {
         Shell playerShell;
         playerShell = new Shell(shellImage, this.x+ (img.getWidth(null)/120)-10, 
-                this.y +5+img.getHeight(null)/2-20, 10, 5,this);
+                this.y +5+img.getHeight(null)/2-20, 10, 10,this);
         bulletList.add(playerShell);
     }
 
@@ -173,7 +175,7 @@ public class Tanks extends GameObject {
         return this.angle;
     }
 
-    public ArrayList<Shell> getBulletList() {
+    public ArrayList<Shell> getBulletList(){
         return bulletList;
     }
     public void tankDamage(int damage){
