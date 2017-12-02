@@ -156,7 +156,7 @@ public class GameFrame extends JApplet implements Runnable{
 
         }
         for(int i = 0; i <P1.getBulletList().size(); i++){
-            if(P1.getBulletList().get(i).getShow()){
+            if(P1.getBulletList().get(i).isShowing()){
                 P1.getBulletList().get(i).draw(this,g2);
 
             }
@@ -165,7 +165,7 @@ public class GameFrame extends JApplet implements Runnable{
             }
         }
         for(int i = 0; i <P2.getBulletList().size(); i++){
-            if(P2.getBulletList().get(i).getShow()){
+            if(P2.getBulletList().get(i).isShowing()){
                 P2.getBulletList().get(i).draw(this,g2);
 
             }

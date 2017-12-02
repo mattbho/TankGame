@@ -59,32 +59,41 @@ public class Tanks extends GameObject {
     public void draw(ImageObserver obs, Graphics2D g2) {
         shotCoolDown--;
         if(!isDead()){
-            if(health >= 0){
+            if(health >= 0 && cooldown == 0){
                 g2.drawImage(img, x, y, x + (img.getWidth(null) / 60),
                         y + img.getHeight(null), angle * 64, 0,
                         angle * 64 + 64, img.getHeight(null), obs);
-            }else{
+
+            }else if(cooldown == 0){
                 addExplosion(GameFrame.getExplosionLarge(),this.x,this.y);
+                cooldown = 50;
                 angle = oangle;
                 x=ox;
                 y=oy;
                 health=100;
                 lives--;
+            } else{
+                cooldown--;
             }
         }
-        if(GameFrame.getP1().collision(GameFrame.getP2().x, GameFrame.getP2().y, GameFrame.getP2().width, GameFrame.getP2().height)){
-            if(GameFrame.getP1().x>this.x){
-                GameFrame.getP1().x += speed;
-                GameFrame.getP2().x -= speed;               
-            }if(GameFrame.getP1().x<this.x){
-                GameFrame.getP1().x -= speed;
-                GameFrame.getP2().x += speed;               
-            }if(GameFrame.getP1().y>this.y){
-                GameFrame.getP1().y += speed;
-                GameFrame.getP2().y -= speed;               
-            }if(GameFrame.getP1().y<this.y){
-                GameFrame.getP1().y -= speed;
-                GameFrame.getP2().y += speed;               
+        if(GameFrame.getP1().cooldown == 0 && GameFrame.getP2().cooldown ==0) {
+            if (GameFrame.getP1().collision(GameFrame.getP2().x, GameFrame.getP2().y, GameFrame.getP2().width, GameFrame.getP2().height)) {
+                if (GameFrame.getP1().x > this.x) {
+                    GameFrame.getP1().x += speed;
+                    GameFrame.getP2().x -= speed;
+                }
+                if (GameFrame.getP1().x < this.x) {
+                    GameFrame.getP1().x -= speed;
+                    GameFrame.getP2().x += speed;
+                }
+                if (GameFrame.getP1().y > this.y) {
+                    GameFrame.getP1().y += speed;
+                    GameFrame.getP2().y -= speed;
+                }
+                if (GameFrame.getP1().y < this.y) {
+                    GameFrame.getP1().y -= speed;
+                    GameFrame.getP2().y += speed;
+                }
             }
         }
         
@@ -165,10 +174,12 @@ public class Tanks extends GameObject {
 }
 
     public void shoot() {
-        Shell playerShell;
-        playerShell = new Shell(shellImage, this.x+ (img.getWidth(null)/120)-10, 
-                this.y +5+img.getHeight(null)/2-20, 10, 10,this);
-        bulletList.add(playerShell);
+        if(!isDead()) {
+            Shell playerShell;
+            playerShell = new Shell(shellImage, this.x + (img.getWidth(null) / 120) - 10,
+                    this.y + 5 + img.getHeight(null) / 2 - 20, 10, 25, this);
+            bulletList.add(playerShell);
+        }
     }
 
     public int getAngle() {
@@ -184,6 +195,9 @@ public class Tanks extends GameObject {
     
     public boolean isDead(){
         return (lives<=0);
+    }
+    public int getCooldown(){
+        return cooldown;
     }
 
 }

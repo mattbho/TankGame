@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Observable;
 import TankGame.GameFrame;
+import TankGame.SoundPlayer;
 
 /**
  *
@@ -42,15 +43,17 @@ public class Shell extends GameObject{
         y -= speed * Math.sin( Math.toRadians( 6 * angle ) );
 
         if(GameFrame.getP1().collision(this.x,this.y,this.width,this.height) && isShowing()
-                && this.tank != GameFrame.getP1()){
+                && this.tank != GameFrame.getP1() && GameFrame.getP1().getCooldown() == 0){
             stopShowing();
             GameFrame.getP1().tankDamage(this.damage);
             addExplosion(GameFrame.getExplosionSmall(),this.x,this.y);
+            SoundPlayer.player("TankGame/Resource/Explosion_small.wav", false);
         }else if(GameFrame.getP2().collision(this.x,this.y,this.width,this.height) && isShowing()
-                && this.tank != GameFrame.getP2()){
+                && this.tank != GameFrame.getP2() && GameFrame.getP2().getCooldown() == 0){
             stopShowing();
             GameFrame.getP2().tankDamage(this.damage);
             addExplosion(GameFrame.getExplosionSmall(),this.x,this.y);
+            SoundPlayer.player("TankGame/Resource/Explosion_small.wav", false);
         } else{
             for(int i = 0; i <GameFrame.getBreakwall().size() - 1; i++){
                 Wall temp = GameFrame.getBreakwall().get(i);
@@ -58,6 +61,7 @@ public class Shell extends GameObject{
                     temp.breakWall();
                     stopShowing();
                     addExplosion(GameFrame.getExplosionSmall(),temp.x,temp.y);
+                    SoundPlayer.player("TankGame/Resource/Explosion_small.wav", false);
 
                 }
             }
@@ -66,6 +70,7 @@ public class Shell extends GameObject{
                 if(temp.collision(this.x,this.y,this.width,this.height)){
                     stopShowing();
                     addExplosion(GameFrame.getExplosionSmall(),x, y);
+                    SoundPlayer.player("TankGame/Resource/Explosion_small.wav", false);
 
                 }
             }
@@ -79,10 +84,5 @@ public class Shell extends GameObject{
                     img.getHeight(null), obs);
 
         update();
-    }
-    public boolean getShow(){
-        return show;
-    }
-
-    
+    }    
 }
