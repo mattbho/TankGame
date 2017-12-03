@@ -207,9 +207,31 @@ public class GameFrame extends JApplet implements Runnable{
     public void paint(Graphics g) {        
         g2 = createGraphics2D(width,length);
         
+        int p1x = this.P1.getX() - width/4 > 0 ? this.P1.getX() - width/4 : 0;
+        int p1y = this.P1.getY() - length/2 > 0 ? this.P1.getY() - length/2 : 0;
         
+        if(p1x > width - width/2){
+        	p1x = width-width/2;
+        }
+        if(p1y > 0){
+        	p1y = 0;
+        }
+        
+        int p2x = this.P2.getX() - width/4 > 0 ? this.P2.getX() - width/4 : 0;
+        int p2y = this.P2.getY() - length/2 > 0 ? this.P2.getY() - length/2 : 0;
+        
+        if(p2x > width-width/2){
+        	p2x = width-width/2;
+        }
+        if(p2y > 0){
+        	p2y = 0;
+        }
+        p1view =bimg.getSubimage(p1x, p1y, width/2, length);
+        p2view = bimg.getSubimage(p2x, p2y, width/2, length);
         drawDemo();
-        g.drawImage(bimg, 0, 0, this);
+        g.drawImage(p1view, 0, 0, this);
+        g.drawImage(p2view, width/2, 0, this);
+        g.drawImage(bimg, width/2-100, length-200,200,200, this);
     }
 
     

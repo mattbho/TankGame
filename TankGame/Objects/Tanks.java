@@ -199,6 +199,11 @@ public class Tanks extends GameObject {
     public int getCooldown(){
         return cooldown;
     }
-
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
+    }
 }
 
