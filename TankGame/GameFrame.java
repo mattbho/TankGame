@@ -35,8 +35,8 @@ import javax.swing.JFrame;
  * @author jack
  */
 public class GameFrame extends JApplet implements Runnable{
-    private final int width = 960;
-    private final int length = 740;
+    private final int width = 3008;
+    private final int length = 1650;
     private static Tanks P1, P2;
     //private mapdesign walls, breakWall;
     Image tank1, tank2, wall, bwall, weapon, rocket, floor, shell;
@@ -45,7 +45,7 @@ public class GameFrame extends JApplet implements Runnable{
     private BufferedImage bimg, p1view, p2view;
     private Thread thread;
     GameEvents gameEvents;
-    int w=100,h=0;
+    //int w=100,h=0;
     private FileReader map;
     private static ArrayList<Wall> solidwall= new ArrayList<Wall>();
     private static ArrayList<Wall> breakwall= new ArrayList<Wall>();
@@ -80,10 +80,10 @@ public class GameFrame extends JApplet implements Runnable{
             explosionSmall[5] = ImageIO.read(new File("TankGame/Resource/explosion1_6.png"));
             map=new FileReader("TankGame/Resource/mapDesign.txt");
         }catch(Exception e){} 
-        P1 = new Tanks(tank1, 375, 30, 5 , KeyEvent.VK_W,
-                KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 30);
-        P2 = new Tanks(tank2, 495, 30, 5, KeyEvent.VK_UP,
-                KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN, 0);
+        P1 = new Tanks(tank1, 64, 64, 5 , KeyEvent.VK_W,
+                KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_C, 0);
+        P2 = new Tanks(tank2, 2890, 1500, 5, KeyEvent.VK_UP,
+                KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,KeyEvent.VK_PAGE_DOWN, 30);
 
         
         gameEvents = new GameEvents();
@@ -104,9 +104,9 @@ public class GameFrame extends JApplet implements Runnable{
             while((number = line.readLine()) != null){
                 for(int i= 0; i<number.length(); i++){
                     if(number.charAt(i)=='1')
-                        this.solidwall.add(new Wall(wall, (position % 30) * 32, (position/ 30) * 32, false));
+                        this.solidwall.add(new Wall(wall, (position % 94) * 32, (position/ 94) * 32, false));
                     if(number.charAt(i)=='2')
-                        this.breakwall.add(new Wall(bwall, (position % 30) * 32, (position/ 30) * 32, true));
+                        this.breakwall.add(new Wall(bwall, (position % 94) * 32, (position/ 94) * 32, true));
                     position++;
                 }
             }
@@ -192,46 +192,46 @@ public class GameFrame extends JApplet implements Runnable{
     }
     
     public Graphics2D createGraphics2D(int w, int h) {
-        Graphics2D g2 = null;
         if (bimg == null || bimg.getWidth() != w || bimg.getHeight() != h) {
             bimg = (BufferedImage) createImage(w, h);
         }
         g2 = bimg.createGraphics();
         g2.setBackground(getBackground());
-        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_QUALITY);
-        g2.clearRect(0, 0, w, h);
+        //g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+          //      RenderingHints.VALUE_RENDER_QUALITY);
+        //g2.clearRect(0, 0, w, h);
         return g2;
     }
     
     public void paint(Graphics g) {        
         g2 = createGraphics2D(width,length);
         
-        int p1x = this.P1.getX() - width/4 > 0 ? this.P1.getX() - width/4 : 0;
-        int p1y = this.P1.getY() - length/2 > 0 ? this.P1.getY() - length/2 : 0;
+        int p1x = this.P1.getX() - 960/4 > 0 ? this.P1.getX() - 960/4 : 0;
+        int p1y = this.P1.getY() - 800/2 > 0 ? this.P1.getY() - 800/2 : 0;
         
-        if(p1x > width - width/2){
-        	p1x = width-width/2;
+        if(p1x > width - 960/2){
+            p1x = width-960/2;
         }
-        if(p1y > 0){
-        	p1y = 0;
+        if(p1y > length-800){
+            p1y = length-800;
         }
         
-        int p2x = this.P2.getX() - width/4 > 0 ? this.P2.getX() - width/4 : 0;
-        int p2y = this.P2.getY() - length/2 > 0 ? this.P2.getY() - length/2 : 0;
+        int p2x = this.P2.getX() - 960/4 > 0 ? this.P2.getX() - 960/4 : 0;
+        int p2y = this.P2.getY() - 800/2 > 0 ? this.P2.getY() - 800/2 : 0;
         
-        if(p2x > width-width/2){
-        	p2x = width-width/2;
+        if(p2x > width-960/2){
+            p2x = width-960/2;
         }
-        if(p2y > 0){
-        	p2y = 0;
+        if(p2y > length-800){
+            p2y = length-800;
         }
-        p1view =bimg.getSubimage(p1x, p1y, width/2, length);
-        p2view = bimg.getSubimage(p2x, p2y, width/2, length);
+        p1view =bimg.getSubimage(p1x, p1y, 960/2, 800);
+        p2view = bimg.getSubimage(p2x, p2y, 960/2, 800);
         drawDemo();
         g.drawImage(p1view, 0, 0, this);
-        g.drawImage(p2view, width/2, 0, this);
-        g.drawImage(bimg, width/2-100, length-200,200,200, this);
+        g.drawImage(p2view, 960/2, 0, this);
+        g.drawRect(960/2-1, 0, 1, 800);
+        g.drawImage(bimg, 960/2-100, 800-250,200,200, this);
     }
 
     
@@ -254,14 +254,5 @@ public class GameFrame extends JApplet implements Runnable{
             }
             
         }
-    }
-
-    public int getWidth(){
-        return width;
-    }
-    public int getLength(){
-        return length;
-    }
-
-    
+    }    
 }
