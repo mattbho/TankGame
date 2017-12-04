@@ -42,7 +42,7 @@ public class GameFrame extends JApplet implements Runnable{
     Image tank1, tank2, wall, bwall, weapon, rocket, floor, shell;
     Graphics2D g2;
     //int w= 500, h=500, move=0, speed=5;
-    private BufferedImage bimg, p1view, p2view;
+    private BufferedImage bimg, p1view, p2view, p1view2, p2view2;
     private Thread thread;
     GameEvents gameEvents;
     //int w=100,h=0;
@@ -206,32 +206,36 @@ public class GameFrame extends JApplet implements Runnable{
     public void paint(Graphics g) {        
         g2 = createGraphics2D(width,length);
         
-        int p1x = this.P1.getX() - 960/4 > 0 ? this.P1.getX() - 960/4 : 0;
-        int p1y = this.P1.getY() - 800/2 > 0 ? this.P1.getY() - 800/2 : 0;
+        int p1x = this.P1.getX() - TankMain.getX()/4 > 0 ? this.P1.getX() - TankMain.getX()/4 : 0;
+        int p1y = this.P1.getY() - TankMain.getY()/2 > 0 ? this.P1.getY() - TankMain.getY()/2 : 0;
         
-        if(p1x > width - 960/2){
-            p1x = width-960/2;
+        if(p1x > width - TankMain.getX()/2){
+            p1x = width-TankMain.getX()/2;
         }
-        if(p1y > length-800){
-            p1y = length-800;
+        if(p1y > length-TankMain.getY()){
+            p1y = length-TankMain.getY();
         }
         
-        int p2x = this.P2.getX() - 960/4 > 0 ? this.P2.getX() - 960/4 : 0;
-        int p2y = this.P2.getY() - 800/2 > 0 ? this.P2.getY() - 800/2 : 0;
+        int p2x = this.P2.getX() - TankMain.getX()/4 > 0 ? this.P2.getX() - TankMain.getX()/4 : 0;
+        int p2y = this.P2.getY() - TankMain.getY()/2 > 0 ? this.P2.getY() - TankMain.getY()/2 : 0;
         
-        if(p2x > width-960/2){
-            p2x = width-960/2;
+        if(p2x > width-TankMain.getX()/2){
+            p2x = width-TankMain.getX()/2;
         }
-        if(p2y > length-800){
-            p2y = length-800;
+        if(p2y > length-TankMain.getY()){
+            p2y = length-TankMain.getY();
         }
-        p1view =bimg.getSubimage(p1x, p1y, 960/2, 800);
-        p2view = bimg.getSubimage(p2x, p2y, 960/2, 800);
+        p1view =bimg.getSubimage(p1x, p1y, TankMain.getX()/2, TankMain.getY()-230);
+        p2view = bimg.getSubimage(p2x, p2y, TankMain.getX()/2, TankMain.getY()-230);
+        p1view2 =bimg.getSubimage(p1x, p1y+TankMain.getY()-230, TankMain.getX()/2-100, 230);
+        p2view2 =bimg.getSubimage(p2x+100, p2y+TankMain.getY()-230, TankMain.getX()/2-100, 230);
         drawDemo();
         g.drawImage(p1view, 0, 0, this);
-        g.drawImage(p2view, 960/2, 0, this);
-        g.drawRect(960/2-1, 0, 1, 800);
-        g.drawImage(bimg, 960/2-100, 800-250,200,200, this);
+        g.drawImage(p2view, TankMain.getX()/2, 0, this);
+        g.drawImage(p1view2, 0, TankMain.getY()-230, this);
+        g.drawImage(p2view2, TankMain.getX()/2+100, TankMain.getY()-230, this);
+        g.drawRect(TankMain.getX()/2-1, 0, 1, TankMain.getY()-230);
+        g.drawImage(bimg, TankMain.getX()/2-100, TankMain.getY()-230, 200, 200, this);
     }
 
     
@@ -248,7 +252,7 @@ public class GameFrame extends JApplet implements Runnable{
         while (thread == me) {
             repaint();  
           try {
-                thread.sleep(35);
+                thread.sleep(25);
             } catch (InterruptedException e) {
                 break;
             }

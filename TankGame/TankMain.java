@@ -16,8 +16,9 @@ import javax.swing.JFrame;
  */
 public class TankMain {
     private static final GameFrame frame = new GameFrame();
+    private static final int x = 960;
+    private static final int y = 800;
     public static void main(String arg[]){
-
         frame.init();
 
         JFrame f = new JFrame("TankGame");
@@ -25,7 +26,7 @@ public class TankMain {
         f.addWindowListener(new WindowAdapter() {});
         f.getContentPane().add("Center", frame);
         f.pack();
-        f.setSize(new Dimension(960, 800));
+        f.setSize(new Dimension(x, y));
         f.setVisible(true);
         f.setResizable(false);
         
@@ -34,5 +35,11 @@ public class TankMain {
 
     public static GameFrame getFrame() {
         return frame;
+    }
+    public static int getX(){
+        return x;
+    }
+    public static int getY(){
+        return y;
     }
 }
