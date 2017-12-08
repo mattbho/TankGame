@@ -19,7 +19,7 @@ public class Shell extends GameObject{
     private int damage, speed, angle;
     private Tanks tank;
 
-    static boolean show;
+    boolean show;
     public Shell(Image img, int x, int y, int speed,int damage,Tanks tank){
         super(img, x, y, speed);
         this.width = img.getWidth(null)/60;
@@ -34,7 +34,7 @@ public class Shell extends GameObject{
     public void stopShowing(){
         show = false;
     }
-    public static boolean isShowing(){
+    public boolean isShowing(){
         return show;
     }
 
@@ -83,6 +83,6 @@ public class Shell extends GameObject{
                     y + img.getHeight(null), angle * 24, 0, angle * 24 + 24,
                     img.getHeight(null), obs);
 
-        update();
+        this.update();
     }    
 }

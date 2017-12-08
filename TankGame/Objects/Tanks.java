@@ -26,10 +26,11 @@ import java.util.Observer;
  */
 public class Tanks extends GameObject {
     private int health, lives, up, down, left, right, angle = 0, shotCoolDown = 0, shotRate, shotButton, cooldown = 0;
-    private boolean moveUp, moveDown, moveLeft, moveRight;
+    private boolean moveUp, moveDown, moveLeft, moveRight, shot;
     private Image shellImage;
     private ArrayList<Shell> bulletList = new ArrayList<>();
     private int ox,oy,oangle=0 ;
+    //Shell playerShell;
     public Tanks(Image tank, int x, int y, int speed,
              int up, int down, int left, int right, int shotButton, int angle) {
         super(tank, x, y, speed);
@@ -45,7 +46,7 @@ public class Tanks extends GameObject {
         //this.height = h - 90;
         this.angle = angle;
         oangle=angle;
-        shotRate = 5;
+        shotRate = 20;
         this.shotButton = shotButton;
         try {
             shellImage = ImageIO.read(new File("TankGame/Resource/Shell_basic_strip60.png"));
@@ -104,13 +105,13 @@ public class Tanks extends GameObject {
         if (moveUp == true) {
             x += speed * Math.cos(Math.toRadians(6 * angle));
             y -= speed * Math.sin(Math.toRadians(6 * angle));
-            }
+        }
         if (moveDown == true) {
             x -= speed * Math.cos(Math.toRadians(6 * angle));
             y += speed * Math.sin(Math.toRadians(6 * angle));
-            }
-
-
+        }
+        
+        
         if (moveRight == true)
             angle -= 1;
         if (moveLeft == true)
@@ -119,13 +120,13 @@ public class Tanks extends GameObject {
             angle = 59;
         else if (angle == 60)
             angle = 0;
-        /*
+        
         if (cooldown > 0) {
             moveLeft = false;
             moveRight = false;
             moveUp = false;
             moveDown = false;
-        }*/
+        }
     }
 
     @Override
@@ -158,11 +159,11 @@ public class Tanks extends GameObject {
                     moveDown = true;
             }
             if (e.getKeyCode() == shotButton && shotCoolDown <= 0) {
-                if (e.getID() == KeyEvent.KEY_PRESSED) {
-                    shotCoolDown = shotRate;
+                if(e.getID() == KeyEvent.KEY_PRESSED ){                    
                     shoot();
+                    shotCoolDown = shotRate;
+                    
                 }
-
             }
         } else if (ge.getType() == 2) {
             String msg = (String) ge.getEvent();
@@ -174,11 +175,11 @@ public class Tanks extends GameObject {
 }
 
     public void shoot() {
-        if(!isDead()) {
+        if(!isDead()&&shotCoolDown<=0) {
             Shell playerShell;
             playerShell = new Shell(shellImage, this.x + (img.getWidth(null) / 120) - 10,
                     this.y + 5 + img.getHeight(null) / 2 - 20, 10, 25, this);
-            bulletList.add(playerShell);
+            this.bulletList.add(playerShell);
         }
     }
 
@@ -194,7 +195,7 @@ public class Tanks extends GameObject {
     }
     
     public boolean isDead(){
-        return (lives<=0);
+        return (lives<0);
     }
     public int getCooldown(){
         return cooldown;

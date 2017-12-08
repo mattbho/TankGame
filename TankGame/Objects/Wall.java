@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 public class Wall extends GameObject{
     Boolean breakable;
     private int width,height,cooldown;
+    Shell shell;
     
     public Wall(Image img, int x, int y, Boolean canBreak){
         super(img,x,y, 0);
@@ -52,7 +53,7 @@ public class Wall extends GameObject{
     }
     
     public void update(){
-        if(Shell.isShowing()==false){
+        if(cooldown==0){
             if ((GameFrame.getP1()).collision(this.x, this.y, this.width, this.height)){
                 if(GameFrame.getP1().x>this.x){ 
                     GameFrame.getP1().x+=3;
