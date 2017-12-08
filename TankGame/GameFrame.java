@@ -6,28 +6,20 @@
 package TankGame;
 
 import TankGame.Objects.Explosion;
-import TankGame.Objects.Shell;
 import TankGame.Objects.Tanks;
 import TankGame.Objects.Wall;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JApplet;
-import javax.swing.JFrame;
 
 
 /**
@@ -196,7 +188,7 @@ public class GameFrame extends JApplet implements Runnable{
             bimg = (BufferedImage) createImage(w, h);
         }
         g2 = bimg.createGraphics();
-        g2.setBackground(getBackground());
+        //g2.setBackground(getBackground());
         //g2.setRenderingHint(RenderingHints.KEY_RENDERING,
           //      RenderingHints.VALUE_RENDER_QUALITY);
         //g2.clearRect(0, 0, w, h);
