@@ -60,7 +60,7 @@ public class Tanks extends GameObject {
     public void draw(ImageObserver obs, Graphics2D g2) {
         shotCoolDown--;
         if(!isDead()){
-            if(health >= 0 && cooldown == 0){
+            if(health > 0 && cooldown == 0){
                 g2.drawImage(img, x, y, x + (img.getWidth(null) / 60),
                         y + img.getHeight(null), angle * 64, 0,
                         angle * 64 + 64, img.getHeight(null), obs);
@@ -205,6 +205,12 @@ public class Tanks extends GameObject {
     }
     public int getY(){
         return y;
+    }
+    public int getHealth(){
+        return health;
+    }
+    public int getLives(){
+        return lives;
     }
 }
 

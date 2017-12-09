@@ -9,6 +9,7 @@ import TankGame.Objects.Explosion;
 import TankGame.Objects.Tanks;
 import TankGame.Objects.Wall;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -228,6 +229,9 @@ public class GameFrame extends JApplet implements Runnable{
         g.drawImage(p2view2, TankMain.getX()/2+100, TankMain.getY()-230, this);
         g.drawRect(TankMain.getX()/2-1, 0, 1, TankMain.getY()-230);
         g.drawImage(bimg, TankMain.getX()/2-100, TankMain.getY()-230, 200, 200, this);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 18));
+        g.drawString("Health: "+P1.getHealth() + "        Lives: " + P1.getLives(), 10, TankMain.getY()-50);
+        g.drawString("Health: " + P2.getHealth()+ "        Lives: " + P2.getLives(), TankMain.getX()-250, TankMain.getY()-50);
     }
 
     
