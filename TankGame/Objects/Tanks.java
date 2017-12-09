@@ -7,6 +7,7 @@ package TankGame.Objects;
 
 import TankGame.GameEvents;
 import TankGame.GameFrame;
+import TankGame.SoundPlayer;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -73,6 +74,7 @@ public class Tanks extends GameObject {
                 y=oy;
                 health=100;
                 lives--;
+                SoundPlayer.player("TankGame/Resource/Explosion_large.wav", false);
             } else{
                 cooldown--;
             }
