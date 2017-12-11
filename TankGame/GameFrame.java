@@ -31,26 +31,29 @@ public class GameFrame extends JApplet implements Runnable{
     private final int width = 3008;
     private final int length = 1650;
     private static Tanks P1, P2;
-    //private mapdesign walls, breakWall;
-    Image tank1, tank2, wall, bwall, weapon, rocket, floor, shell;
+    private Image tank1, tank2, wall, bwall, weapon, rocket, floor, shell;
     Graphics2D g2;
-    //int w= 500, h=500, move=0, speed=5;
     private BufferedImage bimg, p1view, p2view, p1view2, p2view2;
     private Thread thread;
     GameEvents gameEvents;
-    //int w=100,h=0;
     private FileReader map;
     private static ArrayList<Wall> solidwall= new ArrayList<Wall>();
     private static ArrayList<Wall> breakwall= new ArrayList<Wall>();
     private static Image[] explosionLarge = new Image[7];
     private static Image[] explosionSmall = new Image[6];
     private static ArrayList<Explosion> explosion = new ArrayList<Explosion>();
+    private StartMenu menu=new StartMenu();
+    static enum State{
+        Menu,Game
+    }
+    static State state= State.Menu;
     
     public void init(){
         
         setBackground(Color.BLACK);
         this.setFocusable(true);
         try{
+            
             floor = ImageIO.read(new File("TankGame/Resource/Background.bmp"));
             tank1 = ImageIO.read(new File("TankGame/Resource/Tank_blue.png"));
             tank2 = ImageIO.read(new File("TankGame/Resource/Tank_red.png"));
@@ -71,6 +74,7 @@ public class GameFrame extends JApplet implements Runnable{
             explosionSmall[3] = ImageIO.read(new File("TankGame/Resource/explosion1_4.png"));
             explosionSmall[4] = ImageIO.read(new File("TankGame/Resource/explosion1_5.png"));
             explosionSmall[5] = ImageIO.read(new File("TankGame/Resource/explosion1_6.png"));
+            
             map=new FileReader("TankGame/Resource/mapDesign.txt");
         }catch(Exception e){} 
         P1 = new Tanks(tank1, 64, 64, 5 , KeyEvent.VK_W,
@@ -84,8 +88,10 @@ public class GameFrame extends JApplet implements Runnable{
         gameEvents.addObserver(P2);
         Controls key = new Controls(this.gameEvents);
         addKeyListener(key);
+        addMouseListener(new Mouse());
         Mapdesign();
         SoundPlayer.player("TankGame/Resource/Music.mid", true);
+        menu.Menu();
     }
     
     public void Mapdesign(){
@@ -139,6 +145,10 @@ public class GameFrame extends JApplet implements Runnable{
     
     public void drawDemo(){
         drawBackGroundWithTileImage();
+        if(state == State.Menu){
+            menu.draw(this, g2);
+        }
+        if(state == State.Game){
         if (!solidwall.isEmpty()) {
             for (int i = 0; i <= solidwall.size() - 1; i++)
 		(solidwall.get(i)).draw(this, g2);
@@ -181,7 +191,7 @@ public class GameFrame extends JApplet implements Runnable{
                 }
             }
         }
-
+        }
     }
     
     public Graphics2D createGraphics2D(int w, int h) {
@@ -196,7 +206,9 @@ public class GameFrame extends JApplet implements Runnable{
         return g2;
     }
     
+    @Override
     public void paint(Graphics g) {        
+        
         g2 = createGraphics2D(width,length);
         
         int p1x = this.P1.getX() - TankMain.getX()/4 > 0 ? this.P1.getX() - TankMain.getX()/4 : 0;
@@ -223,6 +235,7 @@ public class GameFrame extends JApplet implements Runnable{
         p1view2 =bimg.getSubimage(p1x, p1y+TankMain.getY()-230, TankMain.getX()/2-100, 230);
         p2view2 =bimg.getSubimage(p2x+100, p2y+TankMain.getY()-230, TankMain.getX()/2-100, 230);
         drawDemo();
+        if(state == State.Game){
         g.drawImage(p1view, 0, 0, this);
         g.drawImage(p2view, TankMain.getX()/2, 0, this);
         g.drawImage(p1view2, 0, TankMain.getY()-230, this);
@@ -232,6 +245,9 @@ public class GameFrame extends JApplet implements Runnable{
         g.setFont(new Font("TimesRoman", Font.BOLD, 18));
         g.drawString("Health: "+P1.getHealth() + "        Lives: " + P1.getLives(), 10, TankMain.getY()-50);
         g.drawString("Health: " + P2.getHealth()+ "        Lives: " + P2.getLives(), TankMain.getX()-250, TankMain.getY()-50);
+        }else{
+            g.drawImage(bimg, 0, 0 , this);
+        }
     }
 
     
