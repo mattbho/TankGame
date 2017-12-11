@@ -43,7 +43,7 @@ public class GameFrame extends JApplet implements Runnable{
     private static Image[] explosionSmall = new Image[6];
     private static ArrayList<Explosion> explosion = new ArrayList<Explosion>();
     private StartMenu menu=new StartMenu();
-    static enum State{
+    public static enum State{
         Menu,Game
     }
     static State state= State.Menu;
@@ -124,6 +124,10 @@ public class GameFrame extends JApplet implements Runnable{
     public static ArrayList<Wall> getBreakwall(){
         return breakwall;
     }
+    public static void setState(State s){
+        state = s;
+    }
+    
     public static Image[] getExplosionSmall(){return explosionSmall;}
     public static Image[] getExplosionLarge(){return explosionLarge;}
     public static ArrayList<Explosion> getExplosion(){

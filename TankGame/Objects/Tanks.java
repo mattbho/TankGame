@@ -7,6 +7,7 @@ package TankGame.Objects;
 
 import TankGame.GameEvents;
 import TankGame.GameFrame;
+import TankGame.GameFrame.State;
 import TankGame.SoundPlayer;
 
 import javax.imageio.ImageIO;
@@ -78,6 +79,8 @@ public class Tanks extends GameObject {
             } else{
                 cooldown--;
             }
+        }else{
+            GameFrame.setState(State.Menu);
         }
         if(GameFrame.getP1().cooldown == 0 && GameFrame.getP2().cooldown ==0) {
             if (GameFrame.getP1().collision(GameFrame.getP2().x, GameFrame.getP2().y, GameFrame.getP2().width, GameFrame.getP2().height)) {
