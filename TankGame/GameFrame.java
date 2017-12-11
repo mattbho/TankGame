@@ -203,10 +203,6 @@ public class GameFrame extends JApplet implements Runnable{
             bimg = (BufferedImage) createImage(w, h);
         }
         g2 = bimg.createGraphics();
-        //g2.setBackground(getBackground());
-        //g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-          //      RenderingHints.VALUE_RENDER_QUALITY);
-        //g2.clearRect(0, 0, w, h);
         return g2;
     }
     

@@ -6,7 +6,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.io.File;
 import java.net.URL;
 
 public class SoundPlayer {

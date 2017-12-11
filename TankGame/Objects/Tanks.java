@@ -16,11 +16,8 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Observer;
 
 /**
  *
@@ -32,7 +29,6 @@ public class Tanks extends GameObject {
     private Image shellImage;
     private ArrayList<Shell> bulletList = new ArrayList<>();
     private int ox,oy,oangle=0 ;
-    //Shell playerShell;
     public Tanks(Image tank, int x, int y, int speed,
              int up, int down, int left, int right, int shotButton, int angle) {
         super(tank, x, y, speed);

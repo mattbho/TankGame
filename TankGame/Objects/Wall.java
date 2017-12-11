@@ -8,9 +8,6 @@ package TankGame.Objects;
 import TankGame.GameFrame;
 import java.awt.*;
 import java.awt.image.ImageObserver;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  *
