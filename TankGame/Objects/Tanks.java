@@ -76,6 +76,15 @@ public class Tanks extends GameObject {
                 cooldown--;
             }
         }else{
+            
+            GameFrame.getP1().health = 100;
+            GameFrame.getP2().health = 100;
+            GameFrame.getP1().lives = 3;
+            GameFrame.getP2().lives = 3;
+            GameFrame.getP1().x = GameFrame.getP1().ox;
+            GameFrame.getP2().x = GameFrame.getP2().ox;
+            GameFrame.getP1().y = GameFrame.getP1().oy;
+            GameFrame.getP2().y = GameFrame.getP2().oy;
             GameFrame.setState(State.Menu);
         }
         if(GameFrame.getP1().cooldown == 0 && GameFrame.getP2().cooldown ==0) {

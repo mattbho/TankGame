@@ -243,8 +243,8 @@ public class GameFrame extends JApplet implements Runnable{
         g.drawRect(TankMain.getX()/2-1, 0, 1, TankMain.getY()-230);
         g.drawImage(bimg, TankMain.getX()/2-100, TankMain.getY()-230, 200, 200, this);
         g.setFont(new Font("TimesRoman", Font.BOLD, 18));
-        g.drawString("Health: "+P1.getHealth() + "        Lives: " + P1.getLives(), 10, TankMain.getY()-50);
-        g.drawString("Health: " + P2.getHealth()+ "        Lives: " + P2.getLives(), TankMain.getX()-250, TankMain.getY()-50);
+        g.drawString("Health: " + P1.getHealth() + "        Lives: " + P1.getLives(), 10, TankMain.getY()-50);
+        g.drawString("Health: " + P2.getHealth() + "        Lives: " + P2.getLives(), TankMain.getX()-250, TankMain.getY()-50);
         }else{
             g.drawImage(bimg, 0, 0 , this);
         }
