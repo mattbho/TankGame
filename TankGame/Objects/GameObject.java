@@ -40,6 +40,14 @@ public abstract class GameObject implements Observer {
         this.height = img[0].getHeight(null);
     }
     
+    public GameObject(Image img, int x, int y){
+        this.img= img;
+        this.x = x;
+        this.y = y;
+        this.width = img.getWidth(null);
+        this.height = img.getHeight(null);
+    }
+    
     
     public boolean collision(int x, int y, int width, int height){
         box = new Rectangle(this.x,this.y,this.width,this.height);
@@ -68,10 +76,12 @@ public abstract class GameObject implements Observer {
     }
     public int getWidth(){
         return width;
-
     }
     public int getHeight(){
         return height;
+    }
+    public void setSpeed(int s){
+        speed = s;
     }
     public int getSpeed(){
         return speed;

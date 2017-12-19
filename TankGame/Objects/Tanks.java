@@ -28,7 +28,7 @@ public class Tanks extends GameObject {
     private boolean moveUp, moveDown, moveLeft, moveRight, shot;
     private Image shellImage;
     private ArrayList<Shell> bulletList = new ArrayList<>();
-    private int ox,oy,oangle=0 ;
+    private int ox,oy,oangle=0, delay;
     public Tanks(Image tank, int x, int y, int speed,
              int up, int down, int left, int right, int shotButton, int angle) {
         super(tank, x, y, speed);
@@ -110,8 +110,17 @@ public class Tanks extends GameObject {
         
     }
 
-
-    public void updateMove() {
+    public void SpeedIncrease(){
+        setSpeed(10);
+        speed=10;
+    }
+    public void updateMove() {System.out.println(speed);
+        if(speed != 5&& delay == 300){            
+            setSpeed(5);
+            delay = 0;
+        }else if(speed !=5){
+            delay++;
+        }
         if (moveUp == true) {
             x += speed * Math.cos(Math.toRadians(6 * angle));
             y -= speed * Math.sin(Math.toRadians(6 * angle));
