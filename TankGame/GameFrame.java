@@ -24,10 +24,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JApplet;
 
 
-/**
- *
- * @author jack
- */
+
 public class GameFrame extends JApplet implements Runnable{
     private final int width = 3008;
     private final int length = 1650;

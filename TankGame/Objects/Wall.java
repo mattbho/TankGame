@@ -9,10 +9,6 @@ import TankGame.GameFrame;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-/**
- *
- * @author jack
- */
 public class Wall extends GameObject{
     Boolean breakable;
     private int width,height,cooldown;

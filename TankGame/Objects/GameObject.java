@@ -12,10 +12,7 @@ import java.awt.image.ImageObserver;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- *
- * @author Matt
- */
+
 public abstract class GameObject implements Observer {
     protected Image img;
     protected Image[] imgArray;

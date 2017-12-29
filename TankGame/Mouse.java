@@ -9,10 +9,7 @@ import TankGame.GameFrame.State;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/**
- *
- * @author Jack
- */
+
 public class Mouse implements MouseListener{
 
     @Override

@@ -8,10 +8,7 @@ package TankGame;
 
 import java.awt.event.KeyEvent;
 import java.util.Observable;
-/**
- *
- * @author jack
- */
+
 public class GameEvents extends Observable {
     int type;
     Object event;

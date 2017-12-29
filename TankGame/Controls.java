@@ -14,10 +14,6 @@ import java.awt.event.KeyEvent;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author jack
- */
 public class Controls extends KeyAdapter{
     GameEvents gameEvents;
 

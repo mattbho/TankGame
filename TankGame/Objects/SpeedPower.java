@@ -10,10 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.ImageObserver;
 
-/**
- *
- * @author Jack
- */
+
 public class SpeedPower extends GameObject{
      public SpeedPower(Image img, int x, int y){
          super(img, x,y);         

@@ -11,10 +11,7 @@ import java.util.Observable;
 import TankGame.GameFrame;
 import TankGame.SoundPlayer;
 
-/**
- *
- * @author jack
- */
+
 public class Shell extends GameObject{
     private int damage, speed, angle;
     private Tanks tank;

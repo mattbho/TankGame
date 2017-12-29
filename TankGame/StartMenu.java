@@ -16,10 +16,6 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 
-/**
- *
- * @author Jack
- */
 public class StartMenu{
     Image Title;
     public void Menu(){

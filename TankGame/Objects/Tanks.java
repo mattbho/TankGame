@@ -19,10 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 
-/**
- *
- * @author jack
- */
+
 public class Tanks extends GameObject {
     private int health, lives, up, down, left, right, angle = 0, shotCoolDown = 0, shotRate, shotButton, cooldown = 0;
     private boolean moveUp, moveDown, moveLeft, moveRight, shot;

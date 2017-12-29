@@ -10,10 +10,7 @@ import javax.swing.JFrame;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author jack
- */
+
 public class TankMain {
     private static final GameFrame frame = new GameFrame();
     private static final int x = 960;
